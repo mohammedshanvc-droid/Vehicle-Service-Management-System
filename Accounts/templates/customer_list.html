@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #07142e;
+            --blue: #1677f9;
+            --blue-dark: #075ed0;
+            --text: #172033;
+            --muted: #718096;
+            --border: #e5eaf2;
+            --bg: #f4f7fc;
+            --green: #15803d;
+            --red: #dc2626;
+            --shadow: 0 16px 45px rgba(20, 40, 80, 0.09);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", Arial, sans-serif;
+            min-height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* BANNER */
+
+        .banner {
+            position: relative;
+            min-height: 340px;
+            overflow: hidden;
+            background: var(--navy);
+            color: white;
+        }
+
+        .banner-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .banner-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(7, 20, 46, 0.93),
+                rgba(7, 20, 46, 0.70),
+                rgba(7, 20, 46, 0.35)
+            );
+        }
+
+        .banner-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 1350px;
+            min-height: 340px;
+            margin: auto;
+            padding: 55px 35px 85px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .brand-name {
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .brand-name span,
+        .footer-brand h2 span {
+            color: #4da3ff;
+        }
+
+        .eyebrow {
+            margin-bottom: 10px;
+            color: #b9d8ff;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .banner h1 {
+            margin-bottom: 12px;
+            font-size: clamp(30px, 4vw, 44px);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .banner p {
+            max-width: 550px;
+            color: #e0e8f6;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* MAIN CONTAINER */
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1550px;
+            margin: -48px auto 70px;
+            padding: 0 28px;
+        }
+
+        .panel {
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+        }
+
+        /* TOOLBAR */
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 27px 30px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .toolbar-left h2 {
+            margin-bottom: 6px;
+            color: var(--navy);
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .toolbar-left p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .toolbar-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .top-btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 42px;
+            padding: 10px 17px;
+            border: 1px solid var(--blue);
+            border-radius: 7px;
+            background: var(--blue);
+            color: white;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 500;
+            transition: 0.2s ease;
+        }
+
+        .top-btn:hover {
+            background: var(--blue-dark);
+            border-color: var(--blue-dark);
+            transform: translateY(-1px);
+        }
+
+        .top-btn.secondary {
+            border-color: var(--border);
+            background: white;
+            color: #334155;
+        }
+
+        .top-btn.secondary:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        /* SEARCH */
+
+        .search-section {
+            padding: 22px 30px;
+            border-bottom: 1px solid var(--border);
+            background: #fff;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 45px;
+            padding: 0 15px 0 43px;
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            outline: none;
+            background: #fff;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 13px;
+            transition: 0.2s ease;
+        }
+
+        .search-input::placeholder {
+            color: #9aa3b2;
+        }
+
+        .search-input:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(22, 119, 249, 0.09);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7b8494;
+            font-size: 15px;
+            pointer-events: none;
+        }
+
+        .search-button,
+        .clear-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 45px;
+            padding: 0 22px;
+            border-radius: 7px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .search-button {
+            border: 1px solid var(--blue);
+            background: var(--blue);
+            color: white;
+        }
+
+        .search-button:hover {
+            background: var(--blue-dark);
+            border-color: var(--blue-dark);
+        }
+
+        .clear-button {
+            border: 1px solid var(--border);
+            background: white;
+            color: #334155;
+        }
+
+        .clear-button:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        .search-result {
+            margin-top: 12px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .search-result strong {
+            color: var(--text);
+        }
+
+        /* TABLE */
+
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 1250px;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            padding: 17px 20px;
+            background: #f8faff;
+            color: #64748b;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            white-space: nowrap;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+        }
+
+        tbody td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #edf1f7;
+            color: #475569;
+            font-size: 13px;
+            vertical-align: middle;
+        }
+
+        tbody tr {
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover {
+            background: #f8fbff;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .customer-id {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background: #eaf3ff;
+            color: var(--blue-dark);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .customer-name {
+            color: #172554;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .vehicle-number {
+            color: #334155;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .vehicle-image {
+            display: block;
+            width: 100px;
+            height: 68px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            background: #f5f7fb;
+        }
+
+        .no-image {
+            color: #9aa3b2;
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        /* ACTION BUTTONS */
+
+        .row-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .row-actions a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            padding: 7px 13px;
+            border: 1px solid;
+            border-radius: 6px;
+            background: white;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .edit-button {
+            border-color: #86efac !important;
+            color: var(--green);
+        }
+
+        .edit-button:hover {
+            background: var(--green);
+            border-color: var(--green) !important;
+            color: white;
+        }
+
+        .delete-button {
+            border-color: #fecaca !important;
+            color: var(--red);
+        }
+
+        .delete-button:hover {
+            background: var(--red);
+            border-color: var(--red) !important;
+            color: white;
+        }
+
+        /* EMPTY STATE */
+
+        .empty-state {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 8px;
+            color: var(--navy);
+            font-size: 21px;
+            font-weight: 600;
+        }
+
+        .empty-state p {
+            margin-bottom: 22px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .empty-add-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 11px 20px;
+            border-radius: 7px;
+            background: var(--blue);
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.2s ease;
+        }
+
+        .empty-add-button:hover {
+            background: var(--blue-dark);
+        }
+
+        /* FOOTER */
+
+        .site-footer {
+            margin-top: 60px;
+            background: var(--navy);
+            color: white;
+        }
+
+        .footer-content {
+            max-width: 1300px;
+            margin: auto;
+            padding: 42px 32px 32px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand h2 {
+            margin-bottom: 14px;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .footer-brand h2 span {
+            color: #4da3ff;
+        }
+
+        .footer-brand p {
+            max-width: 460px;
+            color: #aebbd2;
+            font-size: 12px;
+            line-height: 1.9;
+        }
+
+        .footer-contact h3 {
+            margin-bottom: 16px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .footer-contact p {
+            margin: 10px 0;
+            color: #aebbd2;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .footer-contact strong {
+            color: white;
+            font-weight: 500;
+        }
+
+        .footer-bottom {
+            padding: 18px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: #8290aa;
+            font-size: 11px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+            .toolbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .search-form {
+                flex-wrap: wrap;
+            }
+
+            .search-input-wrapper {
+                flex-basis: 100%;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .banner,
+            .banner-inner {
+                min-height: 300px;
+            }
+
+            .banner-inner {
+                padding: 45px 22px 75px;
+            }
+
+            .container {
+                margin-top: -35px;
+                padding: 0 12px;
+            }
+
+            .toolbar {
+                padding: 22px 18px;
+            }
+
+            .toolbar-buttons {
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .top-btn {
+                width: 100%;
+            }
+
+            .search-section {
+                padding: 18px;
+            }
+
+            .search-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-input-wrapper {
+                width: 100%;
+                flex-basis: auto;
+            }
+
+            .search-button,
+            .clear-button {
+                width: 100%;
+            }
+
+            .footer-content {
+                padding: 35px 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+
+    <!-- Upload your background image to:
+         media/vehicle_images/indeximage.jpg -->
+
+    <header class="banner">
+        <img
+            src="/media/vehicle_images/indeximage.jpg"
+            alt="Vehicle service workshop"
+            class="banner-image"
+        >
+
+        <div class="banner-overlay"></div>
+
+        <div class="banner-inner">
+            <div class="brand-name">
+                VEHICLE SERVICE<span>.</span>
+            </div>
+
+            <div class="eyebrow">Owner Dashboard</div>
+
+            <h1>Customer Management</h1>
+
+            <p>
+                Manage customer information, registered vehicles,
+                and customer records in one place.
+            </p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="panel">
+
+            <div class="toolbar">
+
+                <div class="toolbar-left">
+                    <h2>All Customers</h2>
+                    <p>View and manage all registered customers.</p>
+                </div>
+
+                <div class="toolbar-buttons">
+
+                    <a href="{% url 'customer_add' %}" class="top-btn">
+                        + Add Customer
+                    </a>
+
+                    <a href="{% url 'staff_dashboard' %}" class="top-btn secondary">
+                        Back to Dashboard
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- SEARCH -->
+
+            <div class="search-section">
+
+                <form
+                    method="GET"
+                    action="{% url 'customer_list' %}"
+                    class="search-form"
+                >
+
+                    <div class="search-input-wrapper">
+                        <span class="search-icon">🔍</span>
+
+                        <input
+                            type="text"
+                            name="search"
+                            value="{{ search|default:'' }}"
+                            class="search-input"
+                            placeholder="Search by customer ID, name, phone, vehicle number..."
+                        >
+                    </div>
+
+                    <button type="submit" class="search-button">
+                        Search
+                    </button>
+
+                    {% if search %}
+                        <a href="{% url 'customer_list' %}" class="clear-button">
+                            Clear
+                        </a>
+                    {% endif %}
+
+                </form>
+
+                {% if search %}
+                    <div class="search-result">
+                        Search results for: <strong>{{ search }}</strong>
+                    </div>
+                {% endif %}
+
+            </div>
+
+            <!-- CUSTOMER TABLE -->
+
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Vehicle Number</th>
+                            <th>Vehicle Model</th>
+                            <th>Vehicle Type</th>
+                            <th>Vehicle Image</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for customer in customers %}
+
+                            <tr>
+
+                                <td>
+                                    <span class="customer-id">
+                                        {{ customer.customer_id }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="customer-name">
+                                        {{ customer.name }}
+                                    </span>
+                                </td>
+
+                                <td>{{ customer.phone }}</td>
+
+                                <td>{{ customer.email }}</td>
+
+                                <td>{{ customer.address }}</td>
+
+                                <td>
+                                    <span class="vehicle-number">
+                                        {{ customer.vehicle_number }}
+                                    </span>
+                                </td>
+
+                                <td>{{ customer.vehicle_model }}</td>
+
+                                <td>{{ customer.vehicle_type }}</td>
+
+                                <td>
+                                    {% if customer.vehicle_image %}
+                                        <img
+                                            src="{{ customer.vehicle_image.url }}"
+                                            alt="Vehicle image"
+                                            class="vehicle-image"
+                                        >
+                                    {% else %}
+                                        <span class="no-image">No Image</span>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    <div class="row-actions">
+
+                                        <a
+                                            href="{% url 'customer_update' customer.id %}"
+                                            class="edit-button"
+                                        >
+                                            Update
+                                        </a>
+
+                                        <a
+                                            href="{% url 'customer_delete' customer.id %}"
+                                            class="delete-button"
+                                            onclick="return confirm('Are you sure you want to delete this customer?');"
+                                        >
+                                            Delete
+                                        </a>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                        {% empty %}
+
+                            <tr>
+                                <td colspan="10">
+                                    <div class="empty-state">
+
+                                        {% if search %}
+                                            <h3>No Customers Found</h3>
+                                            <p>
+                                                No customer matches your search for
+                                                <strong>"{{ search }}"</strong>.
+                                            </p>
+                                        {% else %}
+                                            <h3>No Customers Found</h3>
+                                            <p>
+                                                There are currently no registered customers.
+                                            </p>
+                                        {% endif %}
+
+                                        <a
+                                            href="{% url 'customer_add' %}"
+                                            class="empty-add-button"
+                                        >
+                                            + Add Customer
+                                        </a>
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+
+    <footer class="site-footer">
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+                <h2>VEHICLE SERVICE<span>.</span></h2>
+
+                <p>
+                    Reliable vehicle service management made simple.
+                    Manage customers, vehicle information, service
+                    bookings and service history efficiently.
+                </p>
+            </div>
+
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+
+                <p>
+                    Phone: <strong>+91 98765 43210</strong>
+                </p>
+
+                <p>
+                    Email: <strong>vehicleservice@gmail.com</strong>
+                </p>
+
+                <p>Mon - Sat | 9:00 AM - 6:00 PM</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>
+                © 2026 Vehicle Service Management System.
+                All Rights Reserved.
+            </p>
+        </div>
+
+    </footer>
+
+</body>
+</html>

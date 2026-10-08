@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Add Customer</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <style>
+
+        :root {
+            --navy: #07112f;
+            --navy-light: #101d46;
+
+            --blue: #0a7cff;
+            --blue-dark: #0662cc;
+            --blue-soft: #eaf3ff;
+
+            --text: #172033;
+            --muted: #6b7280;
+
+            --border: #e5eaf2;
+            --bg: #f5f7fb;
+            --white: #ffffff;
+
+            --shadow:
+                0 10px 35px rgba(25, 45, 90, 0.09);
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: "Poppins", Arial, sans-serif;
+
+            min-height: 100vh;
+
+            background: var(--bg);
+
+            color: var(--text);
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+
+        /* =====================================================
+           BANNER
+        ===================================================== */
+
+        .banner {
+            position: relative;
+
+            width: 100%;
+
+            min-height: 285px;
+
+            overflow: hidden;
+
+            padding: 55px 0 115px;
+
+            background: var(--navy);
+
+            color: #ffffff;
+        }
+
+
+        .banner .bg-image {
+            position: absolute;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            object-position: center;
+        }
+
+
+        .banner .bg-overlay {
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(4, 10, 35, 0.95) 0%,
+                    rgba(4, 10, 35, 0.78) 48%,
+                    rgba(4, 10, 35, 0.40) 100%
+                );
+        }
+
+
+        .banner-inner {
+            position: relative;
+
+            max-width: 1100px;
+
+            margin: 0 auto;
+
+            padding: 0 32px;
+        }
+
+
+        .brand-name {
+            margin-bottom: 20px;
+
+            color: #ffffff;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            letter-spacing: 1px;
+        }
+
+
+        .brand-name span {
+            color: var(--blue);
+        }
+
+
+        .banner h1 {
+            margin-bottom: 8px;
+
+            color: #ffffff;
+
+            font-size: 38px;
+
+            font-weight: 600;
+
+            line-height: 1.2;
+
+            letter-spacing: -0.4px;
+        }
+
+
+        .banner p {
+            color: rgba(255, 255, 255, 0.82);
+
+            font-size: 15px;
+
+            font-weight: 300;
+        }
+
+
+        /* =====================================================
+           MAIN CONTAINER
+        ===================================================== */
+
+        .container {
+            position: relative;
+
+            z-index: 5;
+
+            max-width: 1000px;
+
+            margin: -60px auto 0;
+
+            padding: 0 32px 70px;
+        }
+
+
+        /* =====================================================
+           FORM PANEL
+        ===================================================== */
+
+        .panel {
+            overflow: hidden;
+
+            background: var(--white);
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            box-shadow: var(--shadow);
+        }
+
+
+        /* =====================================================
+           PANEL HEADER
+        ===================================================== */
+
+        .panel-header {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 22px 28px;
+
+            background: #ffffff;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+
+        .panel-header h2 {
+            color: var(--text);
+
+            font-size: 19px;
+
+            font-weight: 600;
+        }
+
+
+        .panel-header span {
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .form-container {
+            padding: 32px;
+        }
+
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 22px 24px;
+        }
+
+
+        .field {
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+
+        label {
+            margin-bottom: 8px;
+
+            color: #374151;
+
+            font-size: 13px;
+
+            font-weight: 500;
+        }
+
+
+        input[type="text"],
+        input[type="email"],
+        input[type="file"] {
+            width: 100%;
+
+            font-family: inherit;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           TEXT INPUTS
+        ===================================================== */
+
+        input[type="text"],
+        input[type="email"] {
+
+            height: 46px;
+
+            padding: 0 14px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 7px;
+
+            outline: none;
+
+            background: #ffffff;
+
+            color: var(--text);
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        input[type="text"]::placeholder,
+        input[type="email"]::placeholder {
+            color: #a0a8b5;
+        }
+
+
+        input[type="text"]:hover,
+        input[type="email"]:hover {
+            border-color: #cbd5e1;
+        }
+
+
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+
+            border-color: var(--blue);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(10, 124, 255, 0.09);
+        }
+
+
+        /* =====================================================
+           FILE INPUT
+        ===================================================== */
+
+        input[type="file"] {
+
+            min-height: 46px;
+
+            padding: 9px 11px;
+
+            border: 1px dashed #cbd5e1;
+
+            border-radius: 7px;
+
+            background: #f8fafc;
+
+            color: var(--muted);
+
+            cursor: pointer;
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        input[type="file"]:hover {
+
+            border-color: var(--blue);
+
+            background: #f5f9ff;
+        }
+
+
+        input[type="file"]::file-selector-button {
+
+            margin-right: 12px;
+
+            padding: 7px 14px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            background: var(--blue);
+
+            color: #ffffff;
+
+            font-family: inherit;
+
+            font-size: 12px;
+
+            font-weight: 500;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease;
+        }
+
+
+        input[type="file"]::file-selector-button:hover {
+
+            background: var(--blue-dark);
+        }
+
+
+        /* =====================================================
+           FORM ACTIONS
+        ===================================================== */
+
+        .actions {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-top: 30px;
+
+            padding-top: 24px;
+
+            border-top: 1px solid var(--border);
+        }
+
+
+        button {
+
+            min-height: 42px;
+
+            padding: 0 22px;
+
+            border: 1px solid var(--blue);
+
+            border-radius: 7px;
+
+            background: var(--blue);
+
+            color: #ffffff;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+            cursor: pointer;
+
+            transition:
+                all 0.2s ease;
+        }
+
+
+        button:hover {
+
+            background: var(--blue-dark);
+
+            border-color: var(--blue-dark);
+
+            transform: translateY(-1px);
+        }
+
+
+        button.secondary {
+
+            background: #ffffff;
+
+            color: var(--text);
+
+            border-color: var(--border);
+        }
+
+
+        button.secondary:hover {
+
+            background: #f7f9fc;
+
+            border-color: #cbd5e1;
+
+            transform: none;
+        }
+
+
+        /* =====================================================
+           BOTTOM INFORMATION
+        ===================================================== */
+
+        .bottom-actions {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-top: 18px;
+        }
+
+
+        .required-note {
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .site-footer {
+
+            margin-top: 20px;
+
+            background: var(--navy);
+
+            color: #ffffff;
+        }
+
+
+        .footer-content {
+
+            max-width: 1000px;
+
+            margin: 0 auto;
+
+            padding: 42px 32px 32px;
+
+            display: grid;
+
+            grid-template-columns: 2fr 1fr;
+
+            gap: 60px;
+        }
+
+
+        .footer-brand h2 {
+
+            margin-bottom: 14px;
+
+            color: #ffffff;
+
+            font-size: 21px;
+
+            font-weight: 600;
+
+            letter-spacing: 1px;
+        }
+
+
+        .footer-brand h2 span {
+
+            color: var(--blue);
+        }
+
+
+        .footer-brand p {
+
+            max-width: 450px;
+
+            color: #aeb8d0;
+
+            font-size: 13px;
+
+            line-height: 1.8;
+        }
+
+
+        .footer-contact h3 {
+
+            margin-bottom: 16px;
+
+            color: #ffffff;
+
+            font-size: 15px;
+
+            font-weight: 600;
+        }
+
+
+        .footer-contact p {
+
+            margin: 9px 0;
+
+            color: #aeb8d0;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        .footer-contact strong {
+
+            color: #ffffff;
+
+            font-weight: 500;
+        }
+
+
+        .footer-bottom {
+
+            padding: 18px 20px;
+
+            text-align: center;
+
+            border-top:
+                1px solid
+                rgba(255, 255, 255, 0.10);
+        }
+
+
+        .footer-bottom p {
+
+            margin: 0;
+
+            color: #7f8baa;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .banner {
+
+                min-height: 250px;
+
+                padding:
+                    42px 0 105px;
+            }
+
+
+            .banner-inner {
+
+                padding: 0 20px;
+            }
+
+
+            .brand-name {
+
+                margin-bottom: 17px;
+
+                font-size: 13px;
+            }
+
+
+            .banner h1 {
+
+                font-size: 30px;
+            }
+
+
+            .banner p {
+
+                font-size: 14px;
+            }
+
+
+            .container {
+
+                padding:
+                    0 16px 50px;
+
+                margin-top: -45px;
+            }
+
+
+            .panel-header {
+
+                padding: 18px;
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 4px;
+            }
+
+
+            .form-container {
+
+                padding: 22px 18px;
+            }
+
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+
+                gap: 18px;
+            }
+
+
+            .field.full {
+
+                grid-column: auto;
+            }
+
+
+            .actions {
+
+                flex-direction: column-reverse;
+
+                align-items: stretch;
+            }
+
+
+            .actions a,
+            .actions button {
+
+                width: 100%;
+            }
+
+
+            .actions a {
+
+                display: block;
+            }
+
+
+            .actions a button {
+
+                width: 100%;
+            }
+
+
+            .footer-content {
+
+                grid-template-columns: 1fr;
+
+                gap: 28px;
+
+                padding: 35px 22px;
+            }
+
+
+            .footer-brand p {
+
+                max-width: 100%;
+            }
+
+        }
+
+
+        @media (max-width: 400px) {
+
+            .banner h1 {
+
+                font-size: 27px;
+            }
+
+
+            .container {
+
+                width: 100%;
+            }
+
+
+            .form-container {
+
+                padding: 20px 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+{% include 'navbar.html' %}
+
+
+
+<!-- =====================================================
+     BANNER
+===================================================== -->
+
+<div class="banner">
+
+
+    <img
+        src="/media/vehicle_images/indeximage.jpg"
+        alt=""
+        class="bg-image"
+    >
+
+
+    <div class="bg-overlay"></div>
+
+
+    <div class="banner-inner">
+
+
+        <div class="brand-name">
+
+            VEHICLE SERVICE<span>.</span>
+
+        </div>
+
+
+        <h1>
+            Add Customer
+        </h1>
+
+
+        <p>
+            Register a new customer and vehicle.
+        </p>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="container">
+
+
+    <div class="panel">
+
+
+        <!-- PANEL HEADER -->
+
+        <div class="panel-header">
+
+            <h2>
+                Customer Details
+            </h2>
+
+
+            <span>
+                Enter customer information
+            </span>
+
+        </div>
+
+
+
+        <!-- FORM -->
+
+        <div class="form-container">
+
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+
+                {% csrf_token %}
+
+
+                <div class="form-grid">
+
+
+                    <!-- CUSTOMER NAME -->
+
+                    <div class="field">
+
+                        <label for="name">
+                            Customer Name
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter customer name"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- PHONE -->
+
+                    <div class="field">
+
+                        <label for="phone">
+                            Phone Number
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="phone"
+                            name="phone"
+                            placeholder="Enter phone number"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="field">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter email address"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- ADDRESS -->
+
+                    <div class="field">
+
+                        <label for="address">
+                            Address
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="address"
+                            name="address"
+                            placeholder="Enter address"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- VEHICLE NUMBER -->
+
+                    <div class="field">
+
+                        <label for="vehicle_number">
+                            Vehicle Number
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="vehicle_number"
+                            name="vehicle_number"
+                            placeholder="Example: KL 07 AB 1234"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- VEHICLE MODEL -->
+
+                    <div class="field">
+
+                        <label for="vehicle_model">
+                            Vehicle Model
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="vehicle_model"
+                            name="vehicle_model"
+                            placeholder="Example: Honda City"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- VEHICLE TYPE -->
+
+                    <div class="field">
+
+                        <label for="vehicle_type">
+                            Vehicle Type
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="vehicle_type"
+                            name="vehicle_type"
+                            placeholder="Example: Car / Bike"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- VEHICLE IMAGE -->
+
+                    <div class="field">
+
+                        <label for="vehicle_image">
+                            Vehicle Image
+                        </label>
+
+
+                        <input
+                            type="file"
+                            id="vehicle_image"
+                            name="vehicle_image"
+                            accept="image/*"
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ACTION BUTTONS -->
+
+                <div class="actions">
+
+
+                    <a href="{% url 'customer_list' %}">
+
+                        <button
+                            type="button"
+                            class="secondary"
+                        >
+                            Back to Customers
+                        </button>
+
+                    </a>
+
+
+                    <button type="submit">
+                        Save Customer
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="site-footer">
+
+
+    <div class="footer-content">
+
+
+        <!-- BRAND -->
+
+        <div class="footer-brand">
+
+            <h2>
+                VEHICLE SERVICE<span>.</span>
+            </h2>
+
+
+            <p>
+                Reliable vehicle service management made simple.
+                Manage customers, vehicle information, service
+                bookings and service history efficiently.
+            </p>
+
+        </div>
+
+
+
+        <!-- CONTACT -->
+
+        <div class="footer-contact">
+
+            <h3>
+                Contact Us
+            </h3>
+
+
+            <p>
+                Phone:
+                <strong>
+                    +91 98765 43210
+                </strong>
+            </p>
+
+
+            <p>
+                Email:
+                <strong>
+                    vehicleservice@gmail.com
+                </strong>
+            </p>
+
+
+            <p>
+                Mon - Sat | 9:00 AM - 6:00 PM
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- COPYRIGHT -->
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 Vehicle Service Management System.
+            All Rights Reserved.
+        </p>
+
+    </div>
+
+
+</footer>
+
+
+</body>
+
+</html>

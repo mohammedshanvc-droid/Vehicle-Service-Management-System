@@ -1,0 +1,539 @@
+{% extends "admin/change_list.html" %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+  /* =====================================================================
+     List pages (Customers, Groups, Users, Service bookings, and any other
+     model list you add later) - one file styles them all.
+     ===================================================================== */
+
+  /* ---------- Light theme ---------- */
+  :root,
+  html[data-theme="light"] {
+    color-scheme: light;
+
+    --n-bg: #F4F6FA;
+    --n-card: #FFFFFF;
+    --n-ink: #1B2430;
+    --n-muted: #66758A;
+    --n-line: #E3E8EF;
+    --n-hover: #F6F8FC;
+    --n-field-line: #D5DCE5;
+    --n-primary: #2F5BEA;
+    --n-primary-hover: #2449C2;
+    --n-primary-ink: #FFFFFF;
+    --n-soft: #EAF0FF;
+    --n-shadow: 0 1px 2px rgba(27, 36, 48, 0.06);
+
+    --primary: #2F5BEA;
+    --secondary: #EAF0FF;
+    --accent: #2F5BEA;
+    --primary-fg: #FFFFFF;
+    --body-fg: #1B2430;
+    --body-bg: #F4F6FA;
+    --body-quiet-color: #66758A;
+    --body-loud-color: #1B2430;
+    --header-color: #66758A;
+    --header-branding-color: #1B2430;
+    --header-bg: #FFFFFF;
+    --header-link-color: #2F5BEA;
+    --breadcrumbs-fg: #66758A;
+    --breadcrumbs-link-fg: #2F5BEA;
+    --breadcrumbs-bg: #F4F6FA;
+    --link-fg: #2F5BEA;
+    --link-hover-color: #1B2430;
+    --link-selected-fg: #2F5BEA;
+    --hairline-color: #E3E8EF;
+    --border-color: #D5DCE5;
+    --error-fg: #C8442F;
+    --darkened-bg: #F6F8FC;
+    --selected-bg: #EAF0FF;
+    --selected-row: #EAF0FF;
+    --button-fg: #FFFFFF;
+    --button-bg: #2F5BEA;
+    --button-hover-bg: #2449C2;
+    --default-button-bg: #2F5BEA;
+    --default-button-hover-bg: #2449C2;
+  }
+
+  /* ---------- Dark theme (system preference) ---------- */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]),
+    html:not([data-theme="light"]) {
+      color-scheme: dark;
+
+      --n-bg: #0F141B;
+      --n-card: #171E27;
+      --n-ink: #E7ECF3;
+      --n-muted: #8C9AAD;
+      --n-line: #263040;
+      --n-hover: #1B2430;
+      --n-field-line: #324055;
+      --n-primary: #6E93FF;
+      --n-primary-hover: #8BA8FF;
+      --n-primary-ink: #0F141B;
+      --n-soft: #1E2A44;
+      --n-shadow: none;
+
+      --primary: #6E93FF;
+      --secondary: #1E2A44;
+      --accent: #6E93FF;
+      --primary-fg: #0F141B;
+      --body-fg: #E7ECF3;
+      --body-bg: #0F141B;
+      --body-quiet-color: #8C9AAD;
+      --body-loud-color: #FFFFFF;
+      --header-color: #8C9AAD;
+      --header-branding-color: #E7ECF3;
+      --header-bg: #171E27;
+      --header-link-color: #8BA8FF;
+      --breadcrumbs-fg: #8C9AAD;
+      --breadcrumbs-link-fg: #8BA8FF;
+      --breadcrumbs-bg: #0F141B;
+      --link-fg: #8BA8FF;
+      --link-hover-color: #FFFFFF;
+      --link-selected-fg: #8BA8FF;
+      --hairline-color: #263040;
+      --border-color: #324055;
+      --error-fg: #F08A7F;
+      --darkened-bg: #1B2430;
+      --selected-bg: #1E2A44;
+      --selected-row: #1E2A44;
+      --button-fg: #0F141B;
+      --button-bg: #6E93FF;
+      --button-hover-bg: #8BA8FF;
+      --default-button-bg: #6E93FF;
+      --default-button-hover-bg: #8BA8FF;
+    }
+  }
+
+  /* ---------- Dark theme (manual toggle) ---------- */
+  html[data-theme="dark"] {
+    color-scheme: dark;
+
+    --n-bg: #0F141B;
+    --n-card: #171E27;
+    --n-ink: #E7ECF3;
+    --n-muted: #8C9AAD;
+    --n-line: #263040;
+    --n-hover: #1B2430;
+    --n-field-line: #324055;
+    --n-primary: #6E93FF;
+    --n-primary-hover: #8BA8FF;
+    --n-primary-ink: #0F141B;
+    --n-soft: #1E2A44;
+    --n-shadow: none;
+
+    --primary: #6E93FF;
+    --secondary: #1E2A44;
+    --accent: #6E93FF;
+    --primary-fg: #0F141B;
+    --body-fg: #E7ECF3;
+    --body-bg: #0F141B;
+    --body-quiet-color: #8C9AAD;
+    --body-loud-color: #FFFFFF;
+    --header-color: #8C9AAD;
+    --header-branding-color: #E7ECF3;
+    --header-bg: #171E27;
+    --header-link-color: #8BA8FF;
+    --breadcrumbs-fg: #8C9AAD;
+    --breadcrumbs-link-fg: #8BA8FF;
+    --breadcrumbs-bg: #0F141B;
+    --link-fg: #8BA8FF;
+    --link-hover-color: #FFFFFF;
+    --link-selected-fg: #8BA8FF;
+    --hairline-color: #263040;
+    --border-color: #324055;
+    --error-fg: #F08A7F;
+    --darkened-bg: #1B2430;
+    --selected-bg: #1E2A44;
+    --selected-row: #1E2A44;
+    --button-fg: #0F141B;
+    --button-bg: #6E93FF;
+    --button-hover-bg: #8BA8FF;
+    --default-button-bg: #6E93FF;
+    --default-button-hover-bg: #8BA8FF;
+  }
+
+  /* ---------- Base ---------- */
+  body {
+    background: var(--n-bg);
+    color: var(--n-ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 15px;
+  }
+  #content h1 {
+    margin: 0 0 20px;
+    font-size: 28px;
+    font-weight: 650;
+    color: var(--n-ink);
+  }
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible {
+    outline: 2px solid var(--n-primary);
+    outline-offset: 2px;
+  }
+
+  /* ---------- Header and breadcrumbs ---------- */
+  #header {
+    padding: 14px 40px;
+    background: var(--n-card);
+    color: var(--n-muted);
+    border-bottom: 1px solid var(--n-line);
+    box-shadow: var(--n-shadow);
+  }
+  #header #branding h1,
+  #header #site-name,
+  #header #site-name a:link,
+  #header #site-name a:visited {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--n-ink);
+  }
+  #header #user-tools {
+    font-size: 13px;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  #header a:link,
+  #header a:visited,
+  #header #logout-form button { color: var(--n-primary); }
+  #header a:hover,
+  #header #logout-form button:hover { color: var(--n-ink); }
+
+  div.breadcrumbs {
+    padding: 12px 40px;
+    background: var(--n-bg);
+    color: var(--n-muted);
+    border-bottom: 1px solid var(--n-line);
+    font-size: 13px;
+    text-transform: none;
+  }
+  div.breadcrumbs a:link,
+  div.breadcrumbs a:visited { color: var(--n-primary); }
+
+  /* ---------- Left navigation ---------- */
+  #nav-sidebar,
+  .toggle-nav-sidebar {
+    background: var(--n-card);
+    border-color: var(--n-line);
+  }
+  .toggle-nav-sidebar { color: var(--n-primary); }
+  #nav-sidebar #nav-filter {
+    box-sizing: border-box;
+    width: calc(100% - 24px);
+    margin: 12px;
+    padding: 8px 12px;
+    background: var(--n-bg);
+    color: var(--n-ink);
+    border: 1px solid var(--n-field-line);
+    border-radius: 8px;
+  }
+  #nav-sidebar #nav-filter:focus {
+    border-color: var(--n-primary);
+    box-shadow: 0 0 0 3px var(--n-soft);
+    outline: 0;
+  }
+  #nav-sidebar .module {
+    margin: 0 0 8px;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  #nav-sidebar .module caption {
+    padding: 14px 16px 6px;
+    background: transparent;
+    color: var(--n-muted);
+    border: 0;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  #nav-sidebar .module caption a.section:link,
+  #nav-sidebar .module caption a.section:visited {
+    color: var(--n-muted);
+    text-transform: none;
+  }
+  #nav-sidebar .module caption a.section:hover { color: var(--n-ink); }
+  #nav-sidebar .module th,
+  #nav-sidebar .module td {
+    padding: 9px 16px;
+    background: transparent;
+    border: 0;
+  }
+  #nav-sidebar .module tr:hover th,
+  #nav-sidebar .module tr:hover td { background: var(--n-hover); }
+  #nav-sidebar .module tr.current-model th,
+  #nav-sidebar .module tr.current-model td { background: var(--n-soft); }
+  #nav-sidebar .module th a:link,
+  #nav-sidebar .module th a:visited {
+    color: var(--n-ink);
+    font-weight: 500;
+  }
+  #nav-sidebar .module td a.addlink:link,
+  #nav-sidebar .module td a.addlink:visited { color: var(--n-primary); }
+
+  /* ---------- "Add ..." button (top right) ---------- */
+  #content .object-tools a:link,
+  #content .object-tools a:visited,
+  #content .object-tools a.addlink:link,
+  #content .object-tools a.addlink:visited {
+    padding: 9px 18px;
+    background: var(--n-primary) none;
+    color: var(--n-primary-ink);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  #content .object-tools a:hover { background: var(--n-primary-hover) none; }
+
+  /* ---------- Search bar ---------- */
+  #changelist #toolbar {
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    background: var(--n-card);
+    color: var(--n-muted);
+    border: 1px solid var(--n-line);
+    border-radius: 12px;
+    box-shadow: var(--n-shadow);
+  }
+  #changelist #toolbar form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  #changelist #toolbar form input[type="text"] {
+    flex: 1 1 auto;
+    max-width: 420px;
+    height: auto;
+    margin: 0;
+    padding: 9px 12px;
+    background: var(--n-bg);
+    color: var(--n-ink);
+    border: 1px solid var(--n-field-line);
+    border-radius: 8px;
+    font-size: 15px;
+  }
+  #changelist #toolbar form input[type="text"]:focus {
+    border-color: var(--n-primary);
+    box-shadow: 0 0 0 3px var(--n-soft);
+    outline: 0;
+  }
+  #changelist #toolbar form input[type="submit"] {
+    margin: 0;
+    padding: 9px 18px;
+    background: var(--n-primary);
+    color: var(--n-primary-ink);
+    border: 0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  #changelist #toolbar form input[type="submit"]:hover { background: var(--n-primary-hover); }
+
+  /* ---------- Bulk action bar ---------- */
+  #changelist .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 0 14px;
+    background: transparent;
+    color: var(--n-muted);
+    border: 0;
+    font-size: 14px;
+  }
+  #changelist .actions label { display: flex; align-items: center; gap: 8px; }
+  #changelist .actions select {
+    padding: 8px 10px;
+    background: var(--n-card);
+    color: var(--n-ink);
+    border: 1px solid var(--n-field-line);
+    border-radius: 8px;
+  }
+  #changelist .actions button,
+  #changelist .actions .button {
+    margin: 0;
+    padding: 8px 16px;
+    background: var(--n-soft);
+    color: var(--n-primary);
+    border: 0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  #changelist .actions button:hover,
+  #changelist .actions .button:hover { background: var(--n-primary); color: var(--n-primary-ink); }
+  #changelist .actions span.action-counter,
+  #changelist .actions span.all,
+  #changelist .actions span.question,
+  #changelist .actions span.clear { color: var(--n-muted); }
+
+  /* ---------- Results table ---------- */
+  #changelist .results {
+    background: var(--n-card);
+    border: 1px solid var(--n-line);
+    border-radius: 12px;
+    box-shadow: var(--n-shadow);
+  }
+  #changelist #result_list {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  #changelist #result_list thead th {
+    padding: 12px 14px;
+    background: var(--n-card);
+    color: var(--n-muted);
+    border: 0;
+    border-bottom: 1px solid var(--n-line);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  #changelist #result_list thead th a:link,
+  #changelist #result_list thead th a:visited { color: var(--n-muted); text-transform: none; }
+  #changelist #result_list thead th.sorted a,
+  #changelist #result_list thead th a:hover { color: var(--n-ink); }
+  #changelist #result_list tbody tr td,
+  #changelist #result_list tbody tr th {
+    padding: 13px 14px;
+    background: var(--n-card);
+    border: 0;
+    border-bottom: 1px solid var(--n-line);
+  }
+  #changelist #result_list tbody tr:last-child td,
+  #changelist #result_list tbody tr:last-child th { border-bottom: 0; }
+  #changelist #result_list tbody tr:hover td,
+  #changelist #result_list tbody tr:hover th { background: var(--n-hover); }
+  #changelist #result_list tbody tr.selected td,
+  #changelist #result_list tbody tr.selected th { background: var(--n-soft); }
+  #changelist #result_list tbody th a:link,
+  #changelist #result_list tbody th a:visited {
+    color: var(--n-primary);
+    font-weight: 600;
+  }
+  #changelist #result_list tbody th a:hover { color: var(--n-ink); }
+  #changelist #result_list input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--n-primary);
+  }
+
+  /* ---------- Count line and pagination ---------- */
+  #changelist .paginator {
+    padding: 14px 4px;
+    background: transparent;
+    color: var(--n-muted);
+    border: 0;
+    font-size: 14px;
+  }
+  #changelist .paginator a:link,
+  #changelist .paginator a:visited {
+    padding: 4px 10px;
+    background: var(--n-soft);
+    color: var(--n-primary);
+    border-radius: 6px;
+  }
+  #changelist .paginator a:hover { background: var(--n-primary); color: var(--n-primary-ink); }
+  #changelist .paginator .this-page {
+    padding: 4px 10px;
+    background: var(--n-primary);
+    color: var(--n-primary-ink);
+    border-radius: 6px;
+  }
+
+  /* ---------- Filter panel (right side) ---------- */
+  #changelist-filter {
+    margin: 0 0 0 24px;
+    background: var(--n-card);
+    border: 1px solid var(--n-line);
+    border-radius: 12px;
+    box-shadow: var(--n-shadow);
+    overflow: hidden;
+  }
+  #changelist-filter h2 {
+    margin: 0;
+    padding: 14px 16px;
+    background: var(--n-card);
+    color: var(--n-ink);
+    border-bottom: 1px solid var(--n-line);
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  #changelist-filter #changelist-filter-extra-actions {
+    margin: 0;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--n-line);
+  }
+  #changelist-filter #changelist-filter-extra-actions h3 { margin: 0; font-size: 14px; }
+  #changelist-filter h3 {
+    margin: 14px 16px 6px;
+    color: var(--n-muted);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: none;
+  }
+  #changelist-filter details { padding: 4px 12px; }
+  #changelist-filter summary {
+    padding: 8px 4px;
+    color: var(--n-ink);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  #changelist-filter ul {
+    margin: 0 0 8px;
+    padding: 0 0 0 4px;
+    list-style: none;
+  }
+  #changelist-filter li {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  #changelist-filter li a:link,
+  #changelist-filter li a:visited {
+    display: block;
+    padding: 6px 10px;
+    color: var(--n-muted);
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  #changelist-filter li a:hover { background: var(--n-hover); color: var(--n-ink); }
+  #changelist-filter li.selected {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  #changelist-filter li.selected a:link,
+  #changelist-filter li.selected a:visited {
+    background: var(--n-soft);
+    color: var(--n-primary);
+    font-weight: 600;
+  }
+
+  /* ---------- Small screens ---------- */
+  @media (max-width: 1024px) {
+    #changelist-filter { margin: 0 0 16px; }
+  }
+  @media (max-width: 767px) {
+    #header { padding: 12px 16px; }
+    div.breadcrumbs { padding: 10px 16px; }
+    #content h1 { font-size: 24px; }
+    #changelist #toolbar form { flex-wrap: wrap; }
+  }
+</style>
+{% endblock %}

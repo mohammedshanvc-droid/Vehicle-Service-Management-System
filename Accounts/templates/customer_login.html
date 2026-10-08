@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Login</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300;1,600&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --blue: #0a7cff;
+            --blue-dark: #0662cc;
+            --text: #ffffff;
+            --muted: rgba(255, 255, 255, 0.70);
+            --border: rgba(255, 255, 255, 0.25);
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family: "Poppins", Arial, sans-serif;
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            overflow: hidden;
+
+            background-image:
+                linear-gradient(
+                    90deg,
+                    rgba(3, 10, 36, 0.72),
+                    rgba(3, 10, 36, 0.28)
+                ),
+                url("/media/vehicle_images/loginnew.jpg");
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-repeat: no-repeat;
+
+            color: #ffffff;
+        }
+
+
+        /* =================================
+           BACKGROUND DARK OVERLAY
+        ================================= */
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(3, 10, 36, 0.35),
+                    rgba(3, 10, 36, 0.10)
+                );
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        /* =================================
+           LEFT CONTENT
+        ================================= */
+
+        .brand-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: 50%;
+
+            padding-left: clamp(40px, 9vw, 130px);
+
+            margin-top: -40px;
+        }
+
+
+        .brand-name {
+
+            margin-bottom: 28px;
+
+            font-size: 15px;
+
+            font-style: italic;
+
+            font-weight: 600;
+
+            letter-spacing: 1px;
+        }
+
+
+        .brand-name span {
+            color: var(--blue);
+        }
+
+
+        .brand-content h1 {
+
+            margin-bottom: 18px;
+
+            font-size: clamp(40px, 5vw, 62px);
+
+            font-style: italic;
+
+            font-weight: 600;
+
+            line-height: 1.1;
+
+            text-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.35);
+        }
+
+
+        .brand-content p {
+
+            max-width: 410px;
+
+            font-size: clamp(18px, 2vw, 25px);
+
+            font-style: italic;
+
+            font-weight: 300;
+
+            line-height: 1.4;
+
+            color: rgba(255, 255, 255, 0.88);
+
+            text-shadow:
+                0 3px 15px rgba(0, 0, 0, 0.35);
+        }
+
+
+        /* =================================
+           LOGIN AREA
+        ================================= */
+
+        .login-panel {
+
+            position: relative;
+
+            z-index: 3;
+
+            width: 50%;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 40px 7vw;
+        }
+
+
+        /* =================================
+           GLASS LOGIN CARD
+        ================================= */
+
+        .login-card {
+
+            width: 100%;
+
+            max-width: 390px;
+
+            padding: 40px 36px 36px;
+
+            background:
+                rgba(255, 255, 255, 0.14);
+
+            border: 1px solid
+                rgba(255, 255, 255, 0.28);
+
+            border-radius: 18px;
+
+            backdrop-filter: blur(18px);
+
+            -webkit-backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.30),
+                inset 0 1px 0
+                rgba(255, 255, 255, 0.20);
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        /* GLASS LIGHT EFFECT */
+
+        .login-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+
+            height: 180px;
+
+            top: -90px;
+
+            right: -70px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.16);
+
+            filter: blur(5px);
+
+            pointer-events: none;
+        }
+
+
+        .login-card h2 {
+
+            position: relative;
+
+            font-size: 23px;
+
+            font-weight: 600;
+
+            margin-bottom: 26px;
+
+            color: #ffffff;
+        }
+
+
+        /* =================================
+           HINT
+        ================================= */
+
+        .hint {
+
+            position: relative;
+
+            margin: -15px 0 24px;
+
+            font-size: 13px;
+
+            color: var(--muted);
+        }
+
+
+        /* =================================
+           ERROR
+        ================================= */
+
+        .error {
+
+            position: relative;
+
+            margin-bottom: 16px;
+
+            padding: 10px 12px;
+
+            border-radius: 8px;
+
+            background: rgba(220, 38, 38, 0.20);
+
+            border: 1px solid
+                rgba(255, 150, 150, 0.40);
+
+            color: #ffe1e1;
+
+            font-size: 13px;
+        }
+
+
+        /* =================================
+           LABEL
+        ================================= */
+
+        label {
+
+            position: relative;
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 13px;
+
+            font-weight: 400;
+
+            color: rgba(255, 255, 255, 0.82);
+        }
+
+
+        /* =================================
+           INPUT
+        ================================= */
+
+        input {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 48px;
+
+            margin-bottom: 18px;
+
+            padding: 0 15px;
+
+            border: 1px solid
+                rgba(255, 255, 255, 0.28);
+
+            border-radius: 9px;
+
+            background:
+                rgba(255, 255, 255, 0.12);
+
+            color: #ffffff;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            outline: none;
+
+            backdrop-filter: blur(5px);
+
+            transition:
+                background 0.2s,
+                border-color 0.2s,
+                box-shadow 0.2s;
+        }
+
+
+        input::placeholder {
+
+            color:
+                rgba(255, 255, 255, 0.55);
+        }
+
+
+        input:focus {
+
+            background:
+                rgba(255, 255, 255, 0.18);
+
+            border-color:
+                rgba(255, 255, 255, 0.65);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(10, 124, 255, 0.25);
+        }
+
+
+        /* =================================
+           LOGIN BUTTON
+        ================================= */
+
+        .login-button {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 48px;
+
+            margin-top: 5px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: var(--blue);
+
+            color: #ffffff;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 25px
+                rgba(10, 124, 255, 0.35);
+
+            transition:
+                background 0.2s,
+                transform 0.2s,
+                box-shadow 0.2s;
+        }
+
+
+        .login-button:hover {
+
+            background: var(--blue-dark);
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 10px 30px
+                rgba(10, 124, 255, 0.45);
+        }
+
+
+        /* =================================
+           BACK BUTTON
+        ================================= */
+
+        .back-login {
+
+            position: relative;
+
+            display: block;
+
+            width: 100%;
+
+            height: 46px;
+
+            margin-top: 14px;
+
+            padding: 12px 15px;
+
+            border: 1px solid
+                rgba(255, 255, 255, 0.28);
+
+            border-radius: 9px;
+
+            background:
+                rgba(255, 255, 255, 0.08);
+
+            color: rgba(255, 255, 255, 0.90);
+
+            text-align: center;
+
+            text-decoration: none;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+            backdrop-filter: blur(5px);
+
+            transition:
+                background 0.2s,
+                border-color 0.2s;
+        }
+
+
+        .back-login:hover {
+
+            background:
+                rgba(255, 255, 255, 0.18);
+
+            border-color:
+                rgba(255, 255, 255, 0.50);
+
+            color: #ffffff;
+        }
+
+
+        /* =================================
+           FOCUS
+        ================================= */
+
+        .login-button:focus-visible,
+        .back-login:focus-visible {
+
+            outline: 3px solid
+                rgba(10, 124, 255, 0.45);
+
+            outline-offset: 3px;
+        }
+
+
+        /* =================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 900px) {
+
+            body {
+
+                overflow-y: auto;
+
+                flex-direction: column;
+
+                justify-content: center;
+
+                background-position: center;
+            }
+
+
+            .brand-content {
+
+                width: 100%;
+
+                padding: 50px 25px 20px;
+
+                margin: 0;
+
+                text-align: center;
+            }
+
+
+            .brand-name {
+
+                margin-bottom: 12px;
+            }
+
+
+            .brand-content h1 {
+
+                font-size: 36px;
+
+                margin-bottom: 8px;
+            }
+
+
+            .brand-content p {
+
+                margin: auto;
+
+                font-size: 17px;
+            }
+
+
+            .login-panel {
+
+                width: 100%;
+
+                min-height: auto;
+
+                padding: 30px 20px 50px;
+            }
+
+
+            .login-card {
+
+                max-width: 420px;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            .brand-content {
+
+                padding-top: 35px;
+            }
+
+
+            .brand-content h1 {
+
+                font-size: 30px;
+            }
+
+
+            .brand-content p {
+
+                font-size: 15px;
+            }
+
+
+            .login-panel {
+
+                padding: 20px 16px 35px;
+            }
+
+
+            .login-card {
+
+                padding: 32px 24px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- LEFT BRAND CONTENT -->
+
+    <div class="brand-content">
+
+        <div class="brand-name">
+            VEHICLE SERVICE<span>.</span>
+        </div>
+
+        <h1>
+            Customer Login
+        </h1>
+
+        <p>
+            Track your vehicle service with us.
+        </p>
+
+    </div>
+
+
+    <!-- GLASS LOGIN CARD -->
+
+    <section class="login-panel">
+
+        <div class="login-card">
+
+            <h2>
+                Login to your account
+            </h2>
+
+            <p class="hint">
+                Login using your Customer ID
+            </p>
+
+
+            {% if error %}
+
+                <p class="error">
+                    {{ error }}
+                </p>
+
+            {% endif %}
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <label for="customer_id">
+                    Customer ID
+                </label>
+
+                <input
+                    type="number"
+                    id="customer_id"
+                    name="customer_id"
+                    placeholder="Enter Customer ID"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+                    Login
+                </button>
+
+            </form>
+
+
+            <a 
+                href="{% url 'index' %}" 
+                class="back-login"
+            >
+                Back to Home
+            </a>
+
+
+
+        </div>
+
+    </section>
+
+
+</body>
+
+</html>

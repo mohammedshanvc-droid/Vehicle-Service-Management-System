@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service History</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #07142e;
+            --blue: #1677f9;
+            --blue-dark: #075ed0;
+            --text: #172033;
+            --muted: #718096;
+            --border: #e5eaf2;
+            --bg: #f4f7fc;
+            --green: #15803d;
+            --green-bg: #eaf8ef;
+            --red: #dc2626;
+            --red-bg: #fff0f0;
+            --shadow: 0 16px 45px rgba(20, 40, 80, 0.09);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", Arial, sans-serif;
+            min-height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* BANNER */
+
+        .banner {
+            position: relative;
+            min-height: 340px;
+            overflow: hidden;
+            background: var(--navy);
+            color: white;
+        }
+
+        .banner-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .banner-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(7, 20, 46, 0.93),
+                rgba(7, 20, 46, 0.70),
+                rgba(7, 20, 46, 0.35)
+            );
+        }
+
+        .banner-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 1350px;
+            min-height: 340px;
+            margin: auto;
+            padding: 55px 35px 85px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .brand-name {
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .brand-name span,
+        .footer-brand h2 span {
+            color: #4da3ff;
+        }
+
+        .eyebrow {
+            margin-bottom: 10px;
+            color: #b9d8ff;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .banner h1 {
+            margin-bottom: 12px;
+            font-size: clamp(30px, 4vw, 44px);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .banner p {
+            max-width: 550px;
+            color: #e0e8f6;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* MAIN CONTAINER */
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1550px;
+            margin: -48px auto 70px;
+            padding: 0 28px;
+        }
+
+        .panel {
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+        }
+
+        /* TOOLBAR */
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 27px 30px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .toolbar-left h2 {
+            margin-bottom: 6px;
+            color: var(--navy);
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .toolbar-left p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* BUTTON */
+
+        .top-btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 42px;
+            padding: 10px 17px;
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            background: white;
+            color: #334155;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 500;
+            transition: 0.2s ease;
+        }
+
+        .top-btn:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            transform: translateY(-1px);
+        }
+
+        /* TABLE */
+
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 1250px;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            padding: 17px 20px;
+            background: #f8faff;
+            color: #64748b;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            white-space: nowrap;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+        }
+
+        tbody td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #edf1f7;
+            color: #475569;
+            font-size: 13px;
+            line-height: 1.7;
+            vertical-align: middle;
+        }
+
+        tbody tr {
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover {
+            background: #f8fbff;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* BOOKING ID */
+
+        .booking-id {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background: #eaf3ff;
+            color: var(--blue-dark);
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* CUSTOMER AND VEHICLE */
+
+        .customer-id {
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .customer-name {
+            color: #172554;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .vehicle-number {
+            color: #334155;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .service-type {
+            color: #172554;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* STATUS */
+
+        .status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: #eaf3ff;
+            color: var(--blue-dark);
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status.completed,
+        .status.delivered {
+            background: var(--green-bg);
+            color: var(--green);
+        }
+
+        .status.cancelled {
+            background: var(--red-bg);
+            color: var(--red);
+        }
+
+        .status.in-service {
+            background: #fff7e6;
+            color: #b45309;
+        }
+
+        .status.pending {
+            background: #eaf3ff;
+            color: var(--blue-dark);
+        }
+
+        /* DESCRIPTION */
+
+        .description {
+            max-width: 320px;
+            color: #64748b;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        /* COST */
+
+        .service-cost {
+            color: var(--navy);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* EMPTY STATE */
+
+        .empty {
+            padding: 60px 20px !important;
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+
+        .site-footer {
+            margin-top: 60px;
+            background: var(--navy);
+            color: white;
+        }
+
+        .footer-content {
+            max-width: 1300px;
+            margin: auto;
+            padding: 42px 32px 32px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand h2 {
+            margin-bottom: 14px;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .footer-brand p {
+            max-width: 460px;
+            color: #aebbd2;
+            font-size: 12px;
+            line-height: 1.9;
+        }
+
+        .footer-contact h3 {
+            margin-bottom: 16px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .footer-contact p {
+            margin: 10px 0;
+            color: #aebbd2;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .footer-contact strong {
+            color: white;
+            font-weight: 500;
+        }
+
+        .footer-bottom {
+            padding: 18px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: #8290aa;
+            font-size: 11px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+            .toolbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .banner,
+            .banner-inner {
+                min-height: 300px;
+            }
+
+            .banner-inner {
+                padding: 45px 22px 75px;
+            }
+
+            .container {
+                margin-top: -35px;
+                padding: 0 12px;
+            }
+
+            .toolbar {
+                padding: 22px 18px;
+            }
+
+            .top-btn {
+                width: 100%;
+            }
+
+            .footer-content {
+                padding: 35px 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+
+    <!-- Upload your background image to:
+         media/vehicle_images/indeximage.jpg -->
+
+    <header class="banner">
+
+        <img
+            src="/media/vehicle_images/indeximage.jpg"
+            alt="Vehicle service workshop"
+            class="banner-image"
+        >
+
+        <div class="banner-overlay"></div>
+
+        <div class="banner-inner">
+
+            <div class="brand-name">
+                VEHICLE SERVICE<span>.</span>
+            </div>
+
+            <div class="eyebrow">Service Records</div>
+
+            <h1>Service History</h1>
+
+            <p>
+                Review completed and delivered service records,
+                customer details, and service costs.
+            </p>
+
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+
+    <main class="container">
+
+        <section class="panel">
+
+            <div class="toolbar">
+
+                <div class="toolbar-left">
+                    <h2>Service History Records</h2>
+
+                    <p>
+                        View completed and delivered service records.
+                    </p>
+                </div>
+
+                <a href="{% url 'staff_dashboard' %}" class="top-btn">
+                    &larr; Back to Dashboard
+                </a>
+
+            </div>
+
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Customer ID</th>
+                            <th>Customer Name</th>
+                            <th>Vehicle Number</th>
+                            <th>Vehicle Model</th>
+                            <th>Booking Date</th>
+                            <th>Service Type</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                            <th>Service Cost</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for booking in bookings %}
+
+                            <tr>
+
+                                <td>
+                                    <span class="booking-id">
+                                        #{{ booking.id }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="customer-id">
+                                        {{ booking.customer.customer_id }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="customer-name">
+                                        {{ booking.customer.name }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="vehicle-number">
+                                        {{ booking.customer.vehicle_number }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    {{ booking.customer.vehicle_model }}
+                                </td>
+
+                                <td>
+                                    {{ booking.booking_date|date:"d M Y" }}
+                                </td>
+
+                                <td>
+                                    <span class="service-type">
+                                        {{ booking.service_type }}
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    {% if booking.status == "Completed" %}
+
+                                        <span class="status completed">
+                                            {{ booking.status }}
+                                        </span>
+
+                                    {% elif booking.status == "Delivered" %}
+
+                                        <span class="status delivered">
+                                            {{ booking.status }}
+                                        </span>
+
+                                    {% elif booking.status == "Cancelled" %}
+
+                                        <span class="status cancelled">
+                                            {{ booking.status }}
+                                        </span>
+
+                                    {% elif booking.status == "In Service" %}
+
+                                        <span class="status in-service">
+                                            {{ booking.status }}
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="status pending">
+                                            {{ booking.status }}
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+                                <td>
+                                    <div class="description">
+                                        {{ booking.description|default:"—" }}
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <span class="service-cost">
+                                        ₹ {{ booking.service_cost|default_if_none:"0.00" }}
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        {% empty %}
+
+                            <tr>
+                                <td colspan="10" class="empty">
+                                    No service records found.
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+
+    <footer class="site-footer">
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+
+                <h2>VEHICLE SERVICE<span>.</span></h2>
+
+                <p>
+                    Reliable vehicle service management made simple.
+                    Manage customers, vehicle information, service
+                    bookings and service history efficiently.
+                </p>
+
+            </div>
+
+            <div class="footer-contact">
+
+                <h3>Contact Us</h3>
+
+                <p>
+                    Phone: <strong>+91 98765 43210</strong>
+                </p>
+
+                <p>
+                    Email: <strong>vehicleservice@gmail.com</strong>
+                </p>
+
+                <p>Mon - Sat | 9:00 AM - 6:00 PM</p>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>
+                © 2026 Vehicle Service Management System.
+                All Rights Reserved.
+            </p>
+        </div>
+
+    </footer>
+
+</body>
+</html>

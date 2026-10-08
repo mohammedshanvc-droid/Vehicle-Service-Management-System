@@ -1,0 +1,543 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Booking Details | Vehicle Service</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #07142e;
+            --blue: #1677f9;
+            --blue-dark: #075ed0;
+            --text: #172033;
+            --muted: #718096;
+            --border: #e1e8f2;
+            --bg: #f4f7fc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", Arial, sans-serif;
+            min-height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* HEADER */
+
+        .banner {
+            position: relative;
+            min-height: 270px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            background: var(--navy);
+            color: white;
+        }
+
+        /* Upload your own image and replace the image path below */
+
+        .banner-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .banner-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(7, 20, 46, 0.94),
+                rgba(7, 20, 46, 0.68)
+            );
+        }
+
+        .banner-inner {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 45px 30px 70px;
+        }
+
+        .brand-name {
+            margin-bottom: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+        }
+
+        .brand-name span,
+        .footer-brand h2 span {
+            color: #4da3ff;
+        }
+
+        .eyebrow {
+            margin-bottom: 8px;
+            color: #a9ceff;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .banner h1 {
+            margin-bottom: 12px;
+            font-size: 36px;
+            font-weight: 600;
+        }
+
+        .banner p {
+            color: #dbeafe;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* MAIN CONTENT */
+
+        .container {
+            position: relative;
+            max-width: 1050px;
+            margin: -45px auto 70px;
+            padding: 0 24px;
+        }
+
+        .panel {
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(30, 50, 110, 0.10);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-header h2 {
+            color: var(--navy);
+            font-size: 21px;
+            font-weight: 600;
+        }
+
+        .booking-badge {
+            padding: 7px 13px;
+            border-radius: 6px;
+            background: #eaf3ff;
+            color: var(--blue-dark);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* DETAILS GRID */
+
+        .details-container {
+            padding: 30px;
+        }
+
+        .section-title {
+            margin-bottom: 18px;
+            color: var(--navy);
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 17px;
+        }
+
+        .detail-box {
+            min-width: 0;
+            padding: 18px 20px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: #ffffff;
+            overflow-wrap: anywhere;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .detail-box:hover {
+            border-color: #c4d8f5;
+            box-shadow: 0 4px 14px rgba(30, 50, 110, 0.05);
+        }
+
+        .detail-box.full {
+            grid-column: 1 / -1;
+        }
+
+        .detail-label {
+            margin-bottom: 8px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: #eaf3ff;
+            color: #075ed0;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .cost {
+            color: #15803d;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        /* BACK BUTTON */
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 25px;
+            margin-top: 28px;
+            border-top: 1px solid var(--border);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 11px 22px;
+            border: 1px solid var(--blue);
+            border-radius: 7px;
+            background: var(--blue);
+            color: white;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--blue-dark);
+            border-color: var(--blue-dark);
+            transform: translateY(-1px);
+        }
+
+        /* FOOTER */
+
+        .site-footer {
+            background: var(--navy);
+            color: white;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 55px;
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px 30px;
+        }
+
+        .footer-brand h2 {
+            margin-bottom: 12px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .footer-brand p,
+        .footer-contact p {
+            color: #b5c2d9;
+            font-size: 12px;
+            line-height: 1.9;
+        }
+
+        .footer-brand p {
+            max-width: 430px;
+        }
+
+        .footer-contact h3 {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .footer-contact p {
+            margin-bottom: 7px;
+        }
+
+        .footer-contact strong {
+            color: white;
+            font-weight: 500;
+        }
+
+        .footer-bottom {
+            padding: 17px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: #8797b2;
+            font-size: 11px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 650px) {
+            .banner {
+                min-height: 240px;
+            }
+
+            .banner-inner {
+                padding: 35px 22px 65px;
+            }
+
+            .banner h1 {
+                font-size: 28px;
+            }
+
+            .container {
+                margin-top: -35px;
+                padding: 0 14px;
+            }
+
+            .panel-header {
+                padding: 22px 20px;
+            }
+
+            .panel-header h2 {
+                font-size: 18px;
+            }
+
+            .details-container {
+                padding: 20px;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 13px;
+            }
+
+            .detail-box.full {
+                grid-column: auto;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .back-btn {
+                width: 100%;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                padding: 32px 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+
+    <!-- HEADER WITH SPACE FOR YOUR OWN BACKGROUND IMAGE -->
+
+    <header class="banner">
+
+        <!-- Replace the image path with your uploaded image when ready -->
+        <img
+            src="/media/vehicle_images/indeximage.jpg"
+            alt=""
+            class="banner-image"
+        >
+
+        <div class="banner-overlay"></div>
+
+        <div class="banner-inner">
+
+            <div class="brand-name">
+                VEHICLE SERVICE<span>.</span>
+            </div>
+
+            <div class="eyebrow">Booking Information</div>
+
+            <h1>View Booking Details</h1>
+
+            <p>
+                View complete customer, vehicle and service booking information.
+            </p>
+
+        </div>
+    </header>
+
+    <!-- READ-ONLY BOOKING DETAILS -->
+
+    <main class="container">
+
+        <section class="panel">
+
+            <div class="panel-header">
+                <h2>Booking Details</h2>
+
+                <span class="booking-badge">
+                    Booking #{{ booking.id }}
+                </span>
+            </div>
+
+            <div class="details-container">
+
+                <h3 class="section-title">Customer & Vehicle Information</h3>
+
+                <div class="details-grid">
+
+                    <div class="detail-box">
+                        <div class="detail-label">Customer ID</div>
+                        <div class="detail-value">{{ booking.customer.id }}</div>
+                    </div>
+
+                    <div class="detail-box">
+                        <div class="detail-label">Customer Name</div>
+                        <div class="detail-value">{{ booking.customer.name }}</div>
+                    </div>
+
+                    <div class="detail-box">
+                        <div class="detail-label">Vehicle Number</div>
+                        <div class="detail-value">{{ booking.customer.vehicle_number }}</div>
+                    </div>
+
+                    <div class="detail-box">
+                        <div class="detail-label">Vehicle Model</div>
+                        <div class="detail-value">{{ booking.customer.vehicle_model }}</div>
+                    </div>
+
+                    <div class="detail-box">
+                        <div class="detail-label">Vehicle Type</div>
+                        <div class="detail-value">{{ booking.customer.vehicle_type }}</div>
+                    </div>
+
+                </div>
+
+                <h3 class="section-title" style="margin-top: 30px;">
+                    Service Information
+                </h3>
+
+                <div class="details-grid">
+
+                    <div class="detail-box">
+                        <div class="detail-label">Booking Date</div>
+                        <div class="detail-value">
+                            {{ booking.booking_date|date:"d M Y" }}
+                        </div>
+                    </div>
+
+                    <div class="detail-box">
+                        <div class="detail-label">Service Type</div>
+                        <div class="detail-value">{{ booking.service_type }}</div>
+                    </div>
+
+                    <div class="detail-box">
+                        <div class="detail-label">Booking Status</div>
+                        <div class="detail-value">
+                            <span class="status">{{ booking.status }}</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-box">
+                        <div class="detail-label">Service Cost</div>
+                        <div class="detail-value cost">
+                            ₹ {{ booking.service_cost }}
+                        </div>
+                    </div>
+
+                    <div class="detail-box full">
+                        <div class="detail-label">Service Description</div>
+                        <div class="detail-value">{{ booking.description }}</div>
+                    </div>
+
+                </div>
+
+                <!-- ONLY ONE BUTTON -->
+
+                <div class="actions">
+                    <a href="{% url 'booking_list' %}" class="back-btn">
+                        &larr; Back to Bookings
+                    </a>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+
+    <footer class="site-footer">
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+                <h2>VEHICLE <span>SERVICE.</span></h2>
+
+                <p>
+                    Reliable vehicle service management made simple.
+                    Manage customers, vehicle information, service
+                    bookings and service history efficiently.
+                </p>
+            </div>
+
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+
+                <p>Phone: <strong>+91 98765 43210</strong></p>
+                <p>Email: <strong>vehicleservice@gmail.com</strong></p>
+                <p>Mon - Sat | 9:00 AM - 6:00 PM</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>
+                © 2026 Vehicle Service Management System.
+                All Rights Reserved.
+            </p>
+        </div>
+
+    </footer>
+
+</body>
+</html>
+
