@@ -1,16 +1,15 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Update Booking | Vehicle Service</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 
     <style>
         :root {
@@ -37,15 +36,42 @@
             background: var(--background);
         }
 
-        /* HEADER */
+        /* PAGE HEADER WITH BACKGROUND IMAGE */
 
         .page-header {
-            background: linear-gradient(120deg, #07152e, #123d70);
+            position: relative;
+            min-height: 320px;
+            padding: 55px 25px 100px;
+            background: var(--navy);
             color: var(--white);
-            padding: 42px 25px 95px;
+            overflow: hidden;
+        }
+
+        .header-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+        }
+
+        .header-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(7, 21, 46, 0.90),
+                rgba(7, 21, 46, 0.65),
+                rgba(7, 21, 46, 0.45)
+            );
+            z-index: 1;
         }
 
         .header-inner {
+            position: relative;
+            z-index: 2;
             max-width: 1050px;
             margin: auto;
         }
@@ -63,14 +89,16 @@
 
         .page-header h1 {
             margin-bottom: 9px;
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 600;
+            color: white;
         }
 
         .page-header p {
+            max-width: 650px;
             color: #d4e4fa;
             font-size: 14px;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         /* MAIN FORM */
@@ -79,6 +107,8 @@
             max-width: 900px;
             margin: -52px auto 65px;
             padding: 0 22px;
+            position: relative;
+            z-index: 3;
         }
 
         .form-card {
@@ -88,6 +118,8 @@
             border-radius: 14px;
             box-shadow: 0 18px 45px rgba(15, 35, 75, 0.09);
         }
+
+        /* CARD HEADER */
 
         .card-header {
             display: flex;
@@ -118,6 +150,8 @@
             font-size: 12px;
             font-weight: 600;
         }
+
+        /* FORM BODY */
 
         .form-body {
             padding: 30px;
@@ -201,7 +235,7 @@
             font-size: 11px;
         }
 
-        /* BUTTONS */
+        /* FORM BUTTONS */
 
         .form-actions {
             display: flex;
@@ -267,11 +301,16 @@
 
         @media (max-width: 600px) {
             .page-header {
-                padding: 32px 20px 82px;
+                min-height: 280px;
+                padding: 35px 20px 80px;
             }
 
             .page-header h1 {
-                font-size: 26px;
+                font-size: 27px;
+            }
+
+            .page-header p {
+                font-size: 12px;
             }
 
             .main-container {
@@ -319,11 +358,22 @@
 
 <body>
 
+    <!-- NAVBAR -->
     {% include 'navbar.html' %}
 
-    <!-- PAGE HEADER -->
+    <!-- PAGE HEADER WITH BACKGROUND IMAGE -->
 
     <header class="page-header">
+
+        <!-- Change this filename to your uploaded image -->
+        <img
+            src="/media/vehicle_images/indeximage.jpg"
+            alt="Vehicle service workshop"
+            class="header-image"
+        >
+
+        <div class="header-overlay"></div>
+
         <div class="header-inner">
 
             <div class="brand">
@@ -338,6 +388,7 @@
             </p>
 
         </div>
+
     </header>
 
     <!-- UPDATE FORM -->
@@ -401,11 +452,13 @@
                                 Booking Date <span class="required">*</span>
                             </label>
 
-                            <input type="date"
-                                   name="booking_date"
-                                   id="booking_date"
-                                   value="{{ booking.booking_date|date:'Y-m-d' }}"
-                                   required>
+                            <input
+                                type="date"
+                                name="booking_date"
+                                id="booking_date"
+                                value="{{ booking.booking_date|date:'Y-m-d' }}"
+                                required
+                            >
 
                         </div>
 
@@ -417,12 +470,14 @@
                                 Service Type <span class="required">*</span>
                             </label>
 
-                            <input type="text"
-                                   name="service_type"
-                                   id="service_type"
-                                   value="{{ booking.service_type }}"
-                                   placeholder="Enter service type"
-                                   required>
+                            <input
+                                type="text"
+                                name="service_type"
+                                id="service_type"
+                                value="{{ booking.service_type }}"
+                                placeholder="Enter service type"
+                                required
+                            >
 
                         </div>
 
@@ -457,14 +512,16 @@
                                 Service Cost (₹) <span class="required">*</span>
                             </label>
 
-                            <input type="number"
-                                   name="service_cost"
-                                   id="service_cost"
-                                   value="{{ booking.service_cost }}"
-                                   min="0"
-                                   step="0.01"
-                                   placeholder="0.00"
-                                   required>
+                            <input
+                                type="number"
+                                name="service_cost"
+                                id="service_cost"
+                                value="{{ booking.service_cost }}"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                                required
+                            >
 
                         </div>
 
@@ -476,11 +533,12 @@
                                 Service Description <span class="required">*</span>
                             </label>
 
-                            <textarea name="description"
-                                      id="description"
-                                      rows="4"
-                                      placeholder="Enter details about the required service..."
-                                      required>{{ booking.description }}</textarea>
+                            <textarea
+                                name="description"
+                                id="description"
+                                rows="4"
+                                placeholder="Enter details about the required service..."
+                                required>{{ booking.description }}</textarea>
 
                             <p class="field-hint">
                                 Include any important details about the vehicle service.
@@ -494,8 +552,10 @@
 
                     <div class="form-actions">
 
-                        <a class="btn btn-cancel"
-                           href="{% url 'booking_detail' booking_id=booking.id %}">
+                        <a
+                            class="btn btn-cancel"
+                            href="{% url 'booking_detail' booking_id=booking.id %}"
+                        >
                             Cancel
                         </a>
 
@@ -524,4 +584,3 @@
 
 </body>
 </html>
-

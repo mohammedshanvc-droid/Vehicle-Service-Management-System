@@ -1,27 +1,17 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Add Service Booking</title>
 
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
 
-
     <style>
-
         :root {
             --navy: #030a24;
             --blue: #087cff;
@@ -32,13 +22,11 @@
             --bg: #f3f6fb;
         }
 
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
 
         body {
             font-family: "Poppins", Arial, sans-serif;
@@ -47,365 +35,243 @@
             min-height: 100vh;
         }
 
-
-        /* =========================
-           NAVBAR
-        ========================= */
+        /* NAVBAR */
 
         .navbar {
-            height: 92px;
-
+            min-height: 92px;
             background: var(--navy);
-
             display: flex;
             align-items: center;
-
+            justify-content: space-between;
             padding: 0 46px;
-
             color: white;
+            position: relative;
+            z-index: 10;
         }
-
 
         .navbar-brand {
             font-size: 26px;
             font-weight: 700;
-
             letter-spacing: 0.5px;
-
             color: white;
-
             white-space: nowrap;
+            text-decoration: none;
+            flex-shrink: 0;
         }
-
 
         .navbar-menu {
             display: flex;
-
             align-items: center;
-
+            justify-content: center;
             gap: 40px;
-
-            margin-left: auto;
-
-            margin-right: 55px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0;
         }
-
 
         .navbar-menu a {
             color: white;
-
             text-decoration: none;
-
             font-size: 17px;
-
             font-weight: 600;
-
+            white-space: nowrap;
             transition: 0.2s;
         }
-
 
         .navbar-menu a:hover {
             color: var(--blue);
         }
 
-
         .navbar-right {
             display: flex;
-
             align-items: center;
-
             gap: 18px;
+            flex-shrink: 0;
         }
-
 
         .staff-name {
             color: white;
-
             font-size: 15px;
         }
-
 
         .logout-btn {
             background: var(--blue);
-
             color: white;
-
             border: none;
-
             border-radius: 9px;
-
             padding: 14px 24px;
-
             font-family: inherit;
-
             font-size: 15px;
-
             font-weight: 600;
-
             cursor: pointer;
-
             text-decoration: none;
-
             transition: 0.2s;
         }
-
 
         .logout-btn:hover {
             background: var(--blue-dark);
         }
 
-
-
-        /* =========================
-           HERO
-        ========================= */
+        /* HERO */
 
         .hero {
             position: relative;
-
             height: 365px;
-
             overflow: hidden;
-
             background: var(--navy);
-
             color: white;
         }
-
 
         .hero-image {
             position: absolute;
-
             inset: 0;
-
             width: 100%;
-
             height: 100%;
-
             object-fit: cover;
-
             object-position: center;
         }
 
-
         .hero-overlay {
             position: absolute;
-
             inset: 0;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    rgba(3, 10, 36, 0.92),
-                    rgba(3, 10, 36, 0.68),
-                    rgba(3, 10, 36, 0.48)
-                );
+            background: linear-gradient(
+                90deg,
+                rgba(3, 10, 36, 0.92),
+                rgba(3, 10, 36, 0.68),
+                rgba(3, 10, 36, 0.48)
+            );
         }
-
 
         .hero-content {
             position: relative;
-
             z-index: 2;
-
             height: 100%;
-
             display: flex;
-
             flex-direction: column;
-
             align-items: center;
-
             justify-content: center;
-
             text-align: center;
-
-            padding-bottom: 45px;
+            padding: 0 20px 45px;
         }
-
 
         .hero-content h1 {
             font-size: 46px;
-
             font-weight: 600;
-
             margin-bottom: 12px;
-
             color: white;
         }
 
-
         .hero-content p {
             font-size: 17px;
-
             font-weight: 400;
-
-            color: rgba(255,255,255,0.9);
+            color: rgba(255, 255, 255, 0.9);
         }
 
-
-
-        /* =========================
-           MAIN CARD
-        ========================= */
+        /* MAIN CARD */
 
         .container {
             position: relative;
-
             max-width: 1100px;
-
             margin: -65px auto 70px;
-
             padding: 0 25px;
-
             z-index: 5;
         }
 
-
         .main-card {
             background: white;
-
             border-radius: 14px;
-
-            box-shadow:
-                0 12px 40px rgba(20, 40, 80, 0.10);
-
+            box-shadow: 0 12px 40px rgba(20, 40, 80, 0.10);
             overflow: hidden;
         }
 
-
-        /* =========================
-           CARD HEADER
-        ========================= */
+        /* CARD HEADER */
 
         .card-header {
             padding: 30px 36px;
-
             border-bottom: 1px solid var(--border);
-
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
+            gap: 20px;
         }
-
 
         .card-header h2 {
             font-size: 25px;
-
             font-weight: 600;
-
             color: #10213f;
         }
 
-
         .card-header p {
             margin-top: 5px;
-
             font-size: 13px;
-
             color: var(--muted);
         }
 
-
         .booking-label {
             padding: 8px 15px;
-
             border-radius: 20px;
-
             background: #eef6ff;
-
             color: var(--blue);
-
             font-size: 12px;
-
             font-weight: 600;
+            white-space: nowrap;
         }
 
-
-
-        /* =========================
-           FORM
-        ========================= */
+        /* FORM */
 
         .form-container {
             padding: 36px;
         }
 
-
         .form-row {
             display: grid;
-
             grid-template-columns: 1fr 1fr;
-
             gap: 25px;
         }
-
 
         .form-group {
             margin-bottom: 24px;
         }
 
-
         label {
             display: block;
-
             margin-bottom: 8px;
-
             color: #334155;
-
             font-size: 13px;
-
             font-weight: 500;
         }
-
 
         input,
         select,
         textarea {
             width: 100%;
-
             border: 1px solid var(--border);
-
             border-radius: 7px;
-
             padding: 13px 14px;
-
             background: white;
-
             color: var(--text);
-
             font-family: inherit;
-
             font-size: 13px;
-
             outline: none;
-
             transition: 0.2s;
         }
-
 
         input,
         select {
             height: 47px;
         }
 
-
         textarea {
             min-height: 125px;
-
             resize: vertical;
-
             line-height: 1.6;
         }
-
 
         input::placeholder,
         textarea::placeholder {
             color: #9aa5b5;
         }
-
 
         input:hover,
         select:hover,
@@ -413,789 +279,536 @@
             border-color: #c6d1df;
         }
 
-
         input:focus,
         select:focus,
         textarea:focus {
             border-color: var(--blue);
-
-            box-shadow:
-                0 0 0 3px rgba(8,124,255,0.10);
+            box-shadow: 0 0 0 3px rgba(8, 124, 255, 0.10);
         }
 
-
-
-        /* =========================
-           BUTTONS
-        ========================= */
+        /* BUTTONS */
 
         .buttons {
             display: flex;
-
             justify-content: flex-end;
-
             gap: 12px;
-
             padding-top: 25px;
-
             border-top: 1px solid var(--border);
-
             margin-top: 5px;
         }
 
-
-        .buttons button {
+        .buttons button,
+        .buttons .secondary-btn {
             min-width: 150px;
-
-            height: 45px;
-
+            min-height: 45px;
             border-radius: 7px;
-
-            padding: 0 20px;
-
+            padding: 10px 20px;
             font-family: inherit;
-
             font-size: 13px;
-
             font-weight: 500;
-
             cursor: pointer;
-
             transition: 0.2s;
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
-
 
         .primary-btn {
             background: var(--blue);
-
             color: white;
-
             border: 1px solid var(--blue);
         }
 
-
         .primary-btn:hover {
             background: var(--blue-dark);
-
             border-color: var(--blue-dark);
         }
 
-
         .secondary-btn {
             background: white;
-
             color: #334155;
-
             border: 1px solid var(--border);
         }
 
-
         .secondary-btn:hover {
             background: #f7f9fc;
-
             border-color: #cbd5e1;
         }
 
-
-
-        /* =========================
-           FOOTER
-        ========================= */
+        /* FOOTER */
 
         .site-footer {
             margin-top: 60px;
-
             background: var(--navy);
-
             color: white;
         }
 
-
         .footer-content {
             max-width: 1200px;
-
             margin: auto;
-
             padding: 42px 32px 32px;
-
             display: grid;
-
             grid-template-columns: 2fr 1fr;
-
             gap: 60px;
         }
 
-
         .footer-brand h2 {
             margin-bottom: 14px;
-
             font-size: 21px;
-
             font-weight: 600;
-
             letter-spacing: 1px;
         }
-
 
         .footer-brand h2 span {
             color: var(--blue);
         }
 
-
         .footer-brand p {
             max-width: 450px;
-
             color: #aeb8d0;
-
             font-size: 13px;
-
             line-height: 1.8;
         }
 
-
         .footer-contact h3 {
             margin-bottom: 16px;
-
             font-size: 15px;
-
             font-weight: 600;
         }
 
-
         .footer-contact p {
             margin: 9px 0;
-
             color: #aeb8d0;
-
             font-size: 13px;
-
             line-height: 1.6;
         }
 
-
         .footer-contact strong {
             color: white;
-
             font-weight: 500;
         }
 
-
         .footer-bottom {
-            border-top:
-                1px solid
-                rgba(255,255,255,0.10);
-
+            border-top: 1px solid rgba(255, 255, 255, 0.10);
             text-align: center;
-
             padding: 18px 20px;
         }
 
-
         .footer-bottom p {
             margin: 0;
-
             color: #7f8baa;
-
             font-size: 12px;
         }
 
+        /* RESPONSIVE NAVBAR AND PAGE */
 
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
-
-        @media (max-width: 900px) {
-
+        @media (max-width: 1100px) {
             .navbar {
                 padding: 0 25px;
             }
 
-
             .navbar-menu {
-                gap: 20px;
-
-                margin-right: 20px;
+                gap: 22px;
             }
-
 
             .navbar-menu a {
                 font-size: 14px;
             }
 
+            .navbar-brand {
+                font-size: 22px;
+            }
+
+            .navbar-right {
+                gap: 12px;
+            }
+
+            .logout-btn {
+                padding: 12px 18px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .navbar {
+                height: auto;
+                min-height: 92px;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                padding: 18px 25px;
+                gap: 20px;
+            }
+
+            .navbar-menu {
+                position: static;
+                transform: none;
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 25px;
+            }
 
             .hero-content h1 {
                 font-size: 38px;
             }
 
-
             .footer-content {
                 grid-template-columns: 1fr;
-
                 gap: 30px;
             }
-
         }
 
-
         @media (max-width: 700px) {
-
             .navbar {
-                height: auto;
-
-                min-height: 75px;
-
-                flex-wrap: wrap;
-
                 padding: 18px 20px;
-
                 gap: 15px;
             }
 
+            .navbar-brand {
+                font-size: 20px;
+            }
 
             .navbar-menu {
                 order: 3;
-
                 width: 100%;
-
                 justify-content: center;
-
-                margin: 0;
-
                 gap: 18px;
+                margin: 0;
             }
 
-
-            .navbar-right {
-                margin-left: auto;
+            .navbar-menu a {
+                font-size: 13px;
             }
-
 
             .staff-name {
                 display: none;
             }
 
+            .logout-btn {
+                padding: 10px 15px;
+                font-size: 12px;
+            }
 
             .hero {
                 height: 300px;
             }
 
-
             .hero-content h1 {
                 font-size: 31px;
             }
 
-
             .hero-content p {
-                padding: 0 20px;
-
                 font-size: 14px;
             }
 
-
             .container {
                 margin-top: -45px;
-
                 padding: 0 15px;
             }
 
-
             .card-header {
                 padding: 23px;
-
                 align-items: flex-start;
             }
 
+            .card-header h2 {
+                font-size: 21px;
+            }
 
             .booking-label {
                 display: none;
             }
 
-
             .form-container {
                 padding: 23px;
             }
 
-
             .form-row {
                 grid-template-columns: 1fr;
-
                 gap: 0;
             }
-
 
             .buttons {
                 flex-direction: column-reverse;
             }
-
 
             .buttons a,
             .buttons button {
                 width: 100%;
             }
 
-
-            .buttons button {
+            .buttons button,
+            .buttons .secondary-btn {
                 min-width: 100%;
             }
-
         }
 
-
         @media (max-width: 500px) {
-
-            .navbar-brand {
-                font-size: 20px;
+            .navbar {
+                padding: 16px;
             }
 
+            .navbar-brand {
+                font-size: 18px;
+            }
 
             .navbar-menu {
                 justify-content: space-between;
+                gap: 10px;
             }
-
 
             .navbar-menu a {
-                font-size: 12px;
+                font-size: 11px;
             }
-
 
             .logout-btn {
-                padding: 10px 15px;
-
-                font-size: 12px;
+                padding: 9px 12px;
+                font-size: 11px;
             }
-
 
             .hero-content h1 {
                 font-size: 27px;
             }
 
-
             .card-header h2 {
                 font-size: 20px;
             }
 
-
             .footer-content {
                 padding: 35px 22px;
             }
-
         }
-
     </style>
-
 </head>
-
 
 <body>
 
+    <!-- NAVBAR -->
 
-<!-- =========================
-     NAVBAR
-========================= -->
+    <nav class="navbar">
 
-<nav class="navbar">
-
-
-    <div class="navbar-brand">
-        VEHICLE SERVICE
-    </div>
-
-
-    <div class="navbar-menu">
-
-        <a href="{% url 'staff_dashboard' %}">
-            Dashboard
+        <a href="{% url 'staff_dashboard' %}" class="navbar-brand">
+            VEHICLE SERVICE
         </a>
 
-        <a href="{% url 'customer_list' %}">
-            Customers
-        </a>
-
-        <a href="{% url 'booking_list' %}">
-            Bookings
-        </a>
-
-        <a href="{% url 'service_history' %}">
-            History
-        </a>
-
-    </div>
-
-
-    <div class="navbar-right">
-
-        <span class="staff-name">
-            staff
-        </span>
-
-
-        <a href="{% url 'user_logout' %}"
-           class="logout-btn">
-            Logout
-        </a>
-
-    </div>
-
-</nav>
-
-
-
-<!-- =========================
-     HERO
-========================= -->
-
-<section class="hero">
-
-
-    <img
-        src="/media/vehicle_images/indeximage.jpg"
-        alt=""
-        class="hero-image"
-    >
-
-
-    <div class="hero-overlay"></div>
-
-
-    <div class="hero-content">
-
-        <h1>
-            Add Service Booking
-        </h1>
-
-        <p>
-            Create and manage vehicle service bookings
-        </p>
-
-    </div>
-
-
-</section>
-
-
-
-<!-- =========================
-     FORM CARD
-========================= -->
-
-<div class="container">
-
-
-    <div class="main-card">
-
-
-        <div class="card-header">
-
-
-            <div>
-
-                <h2>
-                    Service Booking Details
-                </h2>
-
-                <p>
-                    Enter customer and service information below.
-                </p>
-
-            </div>
-
-
-            <div class="booking-label">
-                NEW BOOKING
-            </div>
-
-
+        <div class="navbar-menu">
+            <a href="{% url 'staff_dashboard' %}">Dashboard</a>
+            <a href="{% url 'customer_list' %}">Customers</a>
+            <a href="{% url 'booking_list' %}">Bookings</a>
+            <a href="{% url 'service_history' %}">History</a>
         </div>
 
+        <div class="navbar-right">
+            <span class="staff-name">
+                {{ request.user.username|default:"staff" }}
+            </span>
 
+            <a href="{% url 'user_logout' %}" class="logout-btn">
+                Logout
+            </a>
+        </div>
 
-        <div class="form-container">
+    </nav>
 
+    <!-- HERO -->
 
-            <form method="POST">
+    <section class="hero">
 
-                {% csrf_token %}
+        <img
+            src="/media/vehicle_images/indeximage.jpg"
+            alt="Vehicle service workshop"
+            class="hero-image"
+        >
 
+        <div class="hero-overlay"></div>
 
+        <div class="hero-content">
+            <h1>Add Service Booking</h1>
+            <p>Create and manage vehicle service bookings</p>
+        </div>
 
-                <!-- CUSTOMER -->
+    </section>
 
-                <div class="form-group">
+    <!-- BOOKING FORM -->
 
-                    <label>
-                        Customer
-                    </label>
+    <div class="container">
 
+        <div class="main-card">
 
-                    <select
-                        name="customer"
-                        required
-                    >
-
-                        <option value="">
-                            Select Customer
-                        </option>
-
-
-                        {% for customer in customers %}
-
-                        <option value="{{ customer.id }}">
-
-                            {{ customer.customer_id }}
-                            -
-                            {{ customer.name }}
-                            -
-                            {{ customer.vehicle_number }}
-
-                        </option>
-
-                        {% endfor %}
-
-                    </select>
-
+            <div class="card-header">
+                <div>
+                    <h2>Service Booking Details</h2>
+                    <p>Enter customer and service information below.</p>
                 </div>
 
+                <div class="booking-label">
+                    NEW BOOKING
+                </div>
+            </div>
 
+            <div class="form-container">
 
-                <!-- DATE + SERVICE -->
+                <form method="POST">
+                    {% csrf_token %}
 
-                <div class="form-row">
-
+                    <!-- CUSTOMER -->
 
                     <div class="form-group">
+                        <label for="customer">Customer</label>
 
-                        <label>
-                            Booking Date
-                        </label>
+                        <select name="customer" id="customer" required>
+                            <option value="">Select Customer</option>
 
+                            {% for customer in customers %}
+                                <option value="{{ customer.id }}">
+                                    {{ customer.customer_id }} -
+                                    {{ customer.name }} -
+                                    {{ customer.vehicle_number }}
+                                </option>
+                            {% endfor %}
 
-                        <input
-                            type="date"
-                            name="booking_date"
-                            id="booking_date"
-                            required
-                        >
+                        </select>
+                    </div>
+
+                    <!-- DATE AND SERVICE TYPE -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label for="booking_date">Booking Date</label>
+
+                            <input
+                                type="date"
+                                name="booking_date"
+                                id="booking_date"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="service_type">Service Type</label>
+
+                            <input
+                                type="text"
+                                name="service_type"
+                                id="service_type"
+                                placeholder="Enter service type"
+                                required
+                            >
+                        </div>
 
                     </div>
 
-
+                    <!-- STATUS -->
 
                     <div class="form-group">
+                        <label for="status">Status</label>
 
-                        <label>
-                            Service Type
-                        </label>
-
-
-                        <input
-                            type="text"
-                            name="service_type"
-                            placeholder="Enter service type"
-                            required
-                        >
-
+                        <select name="status" id="status" required>
+                            <option value="Pending">Pending</option>
+                            <option value="In Service">In Service</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
                     </div>
 
+                    <!-- DESCRIPTION -->
 
-                </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
 
+                        <textarea
+                            name="description"
+                            id="description"
+                            placeholder="Enter service description"
+                            required
+                        ></textarea>
+                    </div>
 
+                    <!-- SERVICE COST -->
 
-                <!-- STATUS -->
+                    <div class="form-group">
+                        <label for="service_cost">Service Cost</label>
 
-                <div class="form-group">
-
-                    <label>
-                        Status
-                    </label>
-
-
-                    <select
-                        name="status"
-                        required
-                    >
-
-                        <option value="Pending">
-                            Pending
-                        </option>
-
-                        <option value="In Service">
-                            In Service
-                        </option>
-
-                        <option value="Completed">
-                            Completed
-                        </option>
-
-                        <option value="Delivered">
-                            Delivered
-                        </option>
-
-                        <option value="Cancelled">
-                            Cancelled
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-
-                <!-- DESCRIPTION -->
-
-                <div class="form-group">
-
-                    <label>
-                        Description
-                    </label>
-
-
-                    <textarea
-                        name="description"
-                        placeholder="Enter service description"
-                        required
-                    ></textarea>
-
-                </div>
-
-
-
-                <!-- COST -->
-
-                <div class="form-group">
-
-                    <label>
-                        Service Cost
-                    </label>
-
-
-                    <input
-                        type="number"
-                        name="service_cost"
-                        step="0.01"
-                        min="0"
-                        placeholder="Enter service cost"
-                        required
-                    >
-
-                </div>
-
-
-
-                <!-- BUTTONS -->
-
-                <div class="buttons">
-
-
-                    <a href="{% url 'booking_list' %}">
-
-                        <button
-                            type="button"
-                            class="secondary-btn"
+                        <input
+                            type="number"
+                            name="service_cost"
+                            id="service_cost"
+                            step="0.01"
+                            min="0"
+                            placeholder="Enter service cost"
+                            required
                         >
+                    </div>
+
+                    <!-- FORM BUTTONS -->
+
+                    <div class="buttons">
+
+                        <a href="{% url 'booking_list' %}"
+                           class="secondary-btn">
                             Back to Bookings
+                        </a>
+
+                        <button type="submit" class="primary-btn">
+                            Save Booking
                         </button>
 
-                    </a>
+                    </div>
 
+                </form>
 
-                    <button
-                        type="submit"
-                        class="primary-btn"
-                    >
-                        Save Booking
-                    </button>
-
-
-                </div>
-
-
-            </form>
-
+            </div>
 
         </div>
 
     </div>
 
-</div>
+    <!-- FOOTER -->
 
+    <footer class="site-footer">
 
+        <div class="footer-content">
 
-<!-- =========================
-     FOOTER
-========================= -->
+            <div class="footer-brand">
+                <h2>VEHICLE SERVICE<span>.</span></h2>
 
-<footer class="site-footer">
+                <p>
+                    Reliable vehicle service management made simple.
+                    Manage customers, vehicle information, service
+                    bookings and service history efficiently.
+                </p>
+            </div>
 
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
 
-    <div class="footer-content">
+                <p>
+                    Phone:
+                    <strong>+91 98765 43210</strong>
+                </p>
 
+                <p>
+                    Email:
+                    <strong>vehicleservice@gmail.com</strong>
+                </p>
 
-        <div class="footer-brand">
-
-            <h2>
-                VEHICLE SERVICE<span>.</span>
-            </h2>
-
-
-            <p>
-                Reliable vehicle service management made simple.
-                Manage customers, vehicle information, service
-                bookings and service history efficiently.
-            </p>
-
-        </div>
-
-
-
-        <div class="footer-contact">
-
-            <h3>
-                Contact Us
-            </h3>
-
-
-            <p>
-                Phone:
-                <strong>
-                    +91 98765 43210
-                </strong>
-            </p>
-
-
-            <p>
-                Email:
-                <strong>
-                    vehicleservice@gmail.com
-                </strong>
-            </p>
-
-
-            <p>
-                Mon - Sat | 9:00 AM - 6:00 PM
-            </p>
+                <p>Mon - Sat | 9:00 AM - 6:00 PM</p>
+            </div>
 
         </div>
 
+        <div class="footer-bottom">
+            <p>
+                © 2026 Vehicle Service Management System.
+                All Rights Reserved.
+            </p>
+        </div>
 
-    </div>
-
-
-
-    <div class="footer-bottom">
-
-        <p>
-            © 2026 Vehicle Service Management System.
-            All Rights Reserved.
-        </p>
-
-    </div>
-
-
-</footer>
-
+    </footer>
 
 </body>
-
 </html>
