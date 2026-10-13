@@ -1,5 +1,6 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
+
 from .models import ServiceBooking
 from Accounts.models import Customer
 
@@ -60,7 +61,10 @@ def booking_update(request, id):
 
         booking.save()
 
-        return redirect('booking_detail', booking_id=booking.id)
+        return redirect(
+            'booking_detail',
+            booking_id=booking.id
+        )
 
     return render(
         request,
