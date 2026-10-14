@@ -4,13 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Update Service Booking | Vehicle Service</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -38,8 +36,11 @@
             flex-direction: column;
         }
 
-        /* NAVBAR */
+        a {
+            text-decoration: none;
+        }
 
+        /* Navbar */
         .navbar {
             min-height: 80px;
             background: var(--navy);
@@ -48,8 +49,6 @@
             justify-content: space-between;
             padding: 15px 46px;
             color: white;
-            position: relative;
-            z-index: 10;
             gap: 20px;
         }
 
@@ -59,7 +58,6 @@
             letter-spacing: 0.5px;
             color: white;
             white-space: nowrap;
-            text-decoration: none;
         }
 
         .navbar-menu {
@@ -71,7 +69,6 @@
 
         .navbar-menu a {
             color: white;
-            text-decoration: none;
             font-size: 14px;
             font-weight: 600;
             white-space: nowrap;
@@ -100,17 +97,14 @@
             padding: 11px 19px;
             font-size: 13px;
             font-weight: 600;
-            text-decoration: none;
-            transition: background 0.25s, transform 0.25s;
+            transition: background 0.25s;
         }
 
         .logout-btn:hover {
             background: var(--blue-dark);
-            transform: translateY(-2px);
         }
 
-        /* HERO */
-
+        /* Hero */
         .hero {
             position: relative;
             min-height: 330px;
@@ -164,8 +158,7 @@
             color: rgba(255, 255, 255, 0.9);
         }
 
-        /* MAIN CARD */
-
+        /* Main form */
         .container {
             position: relative;
             width: 100%;
@@ -182,14 +175,7 @@
             border-radius: 14px;
             box-shadow: 0 12px 40px rgba(20, 40, 80, 0.10);
             overflow: hidden;
-            transition: box-shadow 0.3s ease;
         }
-
-        .main-card:hover {
-            box-shadow: 0 18px 45px rgba(20, 40, 80, 0.14);
-        }
-
-        /* CARD HEADER */
 
         .card-header {
             padding: 27px 32px;
@@ -203,7 +189,7 @@
         .card-header h2 {
             font-size: 22px;
             font-weight: 600;
-            color: #10213f;
+            color: var(--text);
         }
 
         .card-header p {
@@ -222,8 +208,6 @@
             white-space: nowrap;
         }
 
-        /* FORM */
-
         .form-container {
             padding: 32px;
         }
@@ -232,7 +216,7 @@
             margin-bottom: 22px;
             font-size: 15px;
             font-weight: 600;
-            color: #10213f;
+            color: var(--text);
         }
 
         .form-row {
@@ -302,8 +286,7 @@
             box-shadow: 0 0 0 3px rgba(8, 124, 255, 0.10);
         }
 
-        /* FORM BUTTONS */
-
+        /* Buttons */
         .buttons {
             display: flex;
             justify-content: flex-end;
@@ -323,10 +306,8 @@
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.25s, transform 0.25s,
-                        box-shadow 0.25s;
+            transition: background 0.25s, transform 0.25s;
             text-align: center;
-            text-decoration: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -342,7 +323,6 @@
             background: var(--blue-dark);
             border-color: var(--blue-dark);
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(8, 124, 255, 0.2);
         }
 
         .secondary-btn {
@@ -354,11 +334,9 @@
         .secondary-btn:hover {
             background: #f7f9fc;
             border-color: #cbd5e1;
-            transform: translateY(-2px);
         }
 
-        /* FOOTER */
-
+        /* Footer */
         .site-footer {
             margin-top: auto;
             background: var(--navy);
@@ -417,12 +395,9 @@
         }
 
         .footer-bottom p {
-            margin: 0;
             color: #7f8baa;
             font-size: 12px;
         }
-
-        /* ANIMATIONS */
 
         @keyframes slideUp {
             from {
@@ -436,8 +411,7 @@
             }
         }
 
-        /* RESPONSIVE */
-
+        /* Responsive design */
         @media (max-width: 1000px) {
             .navbar {
                 padding: 18px 25px;
@@ -577,10 +551,8 @@
 
 <body>
 
-    <!-- NAVBAR -->
-
+    <!-- Navbar -->
     <nav class="navbar">
-
         <a href="{% url 'staff_dashboard' %}" class="navbar-brand">
             VEHICLE SERVICE
         </a>
@@ -601,13 +573,10 @@
                 Logout
             </a>
         </div>
-
     </nav>
 
-    <!-- HERO -->
-
+    <!-- Hero -->
     <section class="hero">
-
         <img
             src="/media/vehicle_images/indeximage.jpg"
             alt="Vehicle service workshop"
@@ -620,13 +589,10 @@
             <h1>Update Service Booking</h1>
             <p>Update customer details and service booking information</p>
         </div>
-
     </section>
 
-    <!-- UPDATE BOOKING FORM -->
-
+    <!-- Booking form -->
     <main class="container">
-
         <div class="main-card">
 
             <div class="card-header">
@@ -641,7 +607,6 @@
             </div>
 
             <div class="form-container">
-
                 <h3 class="section-title">Booking Information</h3>
 
                 <form method="POST"
@@ -649,8 +614,7 @@
 
                     {% csrf_token %}
 
-                    <!-- CUSTOMER -->
-
+                    <!-- Customer -->
                     <div class="form-group">
                         <label for="customer">
                             Customer <span class="required">*</span>
@@ -661,7 +625,9 @@
 
                             {% for customer in customers %}
                                 <option value="{{ customer.id }}"
-                                    {% if customer.id == booking.customer.id %}selected{% endif %}>
+                                    {% if customer.id == booking.customer.id %}
+                                        selected
+                                    {% endif %}>
                                     {{ customer.customer_id }} -
                                     {{ customer.name }} -
                                     {{ customer.vehicle_number }}
@@ -670,10 +636,8 @@
                         </select>
                     </div>
 
-                    <!-- DATE AND SERVICE TYPE -->
-
+                    <!-- Booking date and service type -->
                     <div class="form-row">
-
                         <div class="form-group">
                             <label for="booking_date">
                                 Booking Date <span class="required">*</span>
@@ -702,11 +666,9 @@
                                 required
                             >
                         </div>
-
                     </div>
 
-                    <!-- STATUS -->
-
+                    <!-- Service status -->
                     <div class="form-group">
                         <label for="status">
                             Service Status <span class="required">*</span>
@@ -740,8 +702,7 @@
                         </select>
                     </div>
 
-                    <!-- DESCRIPTION -->
-
+                    <!-- Description -->
                     <div class="form-group">
                         <label for="description">
                             Service Description <span class="required">*</span>
@@ -755,8 +716,7 @@
                         >{{ booking.description }}</textarea>
                     </div>
 
-                    <!-- SERVICE COST -->
-
+                    <!-- Service cost -->
                     <div class="form-group">
                         <label for="service_cost">
                             Service Cost (₹) <span class="required">*</span>
@@ -774,31 +734,24 @@
                         >
                     </div>
 
-                    <!-- BUTTONS -->
-
+                    <!-- Buttons -->
                     <div class="buttons">
-
-                        <a href="{% url 'booking_list' %}"
-                           class="secondary-btn">
+                        <a href="{% url 'booking_list' %}" class="secondary-btn">
                             Back to Bookings
                         </a>
 
                         <button type="submit" class="primary-btn">
                             Save Changes
                         </button>
-
                     </div>
 
                 </form>
-
             </div>
         </div>
     </main>
 
-    <!-- FOOTER -->
-
+    <!-- Footer -->
     <footer class="site-footer">
-
         <div class="footer-content">
 
             <div class="footer-brand">
@@ -835,7 +788,6 @@
                 All Rights Reserved.
             </p>
         </div>
-
     </footer>
 
 </body>

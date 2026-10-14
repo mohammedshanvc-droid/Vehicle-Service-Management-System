@@ -5,10 +5,13 @@ from .models import ServiceBooking
 from Accounts.models import Customer
 
 
+# View all service bookings and filter by customer ID
 def booking_list(request):
     customer_id = request.GET.get('customer_id', '').strip()
 
-    bookings = ServiceBooking.objects.select_related('customer').all()
+    bookings = ServiceBooking.objects.select_related(
+        'customer'
+    ).all().order_by('-booking_date')
 
     if customer_id:
         bookings = bookings.filter(
@@ -25,6 +28,7 @@ def booking_list(request):
     )
 
 
+# Add a new service booking
 def booking_add(request):
     customers = Customer.objects.all()
 
@@ -33,7 +37,7 @@ def booking_add(request):
             customer_id=request.POST.get('customer'),
             booking_date=request.POST.get('booking_date'),
             service_type=request.POST.get('service_type'),
-            status=request.POST.get('status'),
+            status=request.POST.get('status', 'Pending'),
             description=request.POST.get('description'),
             service_cost=request.POST.get('service_cost')
         )
@@ -47,6 +51,7 @@ def booking_add(request):
     )
 
 
+# Update an existing service booking
 def booking_update(request, id):
     booking = get_object_or_404(ServiceBooking, id=id)
     customers = Customer.objects.all()
@@ -55,7 +60,7 @@ def booking_update(request, id):
         booking.customer_id = request.POST.get('customer')
         booking.booking_date = request.POST.get('booking_date')
         booking.service_type = request.POST.get('service_type')
-        booking.status = request.POST.get('status')
+        booking.status = request.POST.get('status', 'Pending')
         booking.description = request.POST.get('description')
         booking.service_cost = request.POST.get('service_cost')
 
@@ -76,8 +81,12 @@ def booking_update(request, id):
     )
 
 
+# View the details of one booking
 def booking_detail(request, booking_id):
-    booking = get_object_or_404(ServiceBooking, id=booking_id)
+    booking = get_object_or_404(
+        ServiceBooking,
+        id=booking_id
+    )
 
     return render(
         request,
@@ -86,6 +95,7 @@ def booking_detail(request, booking_id):
     )
 
 
+# Delete a service booking
 def booking_delete(request, id):
     booking = get_object_or_404(ServiceBooking, id=id)
     booking.delete()
@@ -93,9 +103,12 @@ def booking_delete(request, id):
     return redirect('booking_list')
 
 
+# View delivered bookings in service history
 def service_history(request):
     bookings = ServiceBooking.objects.filter(
         status='Delivered'
+    ).select_related(
+        'customer'
     ).order_by('-booking_date')
 
     return render(
